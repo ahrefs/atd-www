@@ -8,8 +8,8 @@ type pointB = ProtoD_t.pointB = { f: float }
 type pointA = ProtoA_t.pointA = { f: float }
 
 val write_pointC :
-  Bi_outbuf.t -> pointC -> unit
-  (** Output a JSON value of type {!pointC}. *)
+  Buffer.t -> pointC -> unit
+  (** Output a JSON value of type {!type:pointC}. *)
 
 val string_of_pointC :
   ?len:int -> pointC -> string
@@ -28,8 +28,8 @@ val pointC_of_string :
   (** Deserialize JSON data of type {!pointC}. *)
 
 val write_pointB :
-  Bi_outbuf.t -> pointB -> unit
-  (** Output a JSON value of type {!pointB}. *)
+  Buffer.t -> pointB -> unit
+  (** Output a JSON value of type {!type:pointB}. *)
 
 val string_of_pointB :
   ?len:int -> pointB -> string
@@ -48,8 +48,8 @@ val pointB_of_string :
   (** Deserialize JSON data of type {!pointB}. *)
 
 val write_pointA :
-  Bi_outbuf.t -> pointA -> unit
-  (** Output a JSON value of type {!pointA}. *)
+  Buffer.t -> pointA -> unit
+  (** Output a JSON value of type {!type:pointA}. *)
 
 val string_of_pointA :
   ?len:int -> pointA -> string

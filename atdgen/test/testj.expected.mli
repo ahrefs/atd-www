@@ -153,8 +153,8 @@ type 'a abs2 = 'a Test.abs2
 type 'a abs1 = 'a Test.abs1
 
 val write_test_variant :
-  Bi_outbuf.t -> test_variant -> unit
-  (** Output a JSON value of type {!test_variant}. *)
+  Buffer.t -> test_variant -> unit
+  (** Output a JSON value of type {!type:test_variant}. *)
 
 val string_of_test_variant :
   ?len:int -> test_variant -> string
@@ -174,14 +174,14 @@ val test_variant_of_string :
 
 
 val write_poly :
-  (Bi_outbuf.t -> 'x -> unit) ->
-  (Bi_outbuf.t -> 'y -> unit) ->
-  Bi_outbuf.t -> ('x, 'y) poly -> unit
-  (** Output a JSON value of type {!poly}. *)
+  (Buffer.t -> 'x -> unit) ->
+  (Buffer.t -> 'y -> unit) ->
+  Buffer.t -> ('x, 'y) poly -> unit
+  (** Output a JSON value of type {!type:poly}. *)
 
 val string_of_poly :
-  (Bi_outbuf.t -> 'x -> unit) ->
-  (Bi_outbuf.t -> 'y -> unit) ->
+  (Buffer.t -> 'x -> unit) ->
+  (Buffer.t -> 'y -> unit) ->
   ?len:int -> ('x, 'y) poly -> string
   (** Serialize a value of type {!poly}
       into a JSON string.
@@ -209,12 +209,12 @@ val create_poly :
 
 
 val write_p' :
-  (Bi_outbuf.t -> 'a -> unit) ->
-  Bi_outbuf.t -> 'a p' -> unit
-  (** Output a JSON value of type {!p'}. *)
+  (Buffer.t -> 'a -> unit) ->
+  Buffer.t -> 'a p' -> unit
+  (** Output a JSON value of type {!type:p'}. *)
 
 val string_of_p' :
-  (Bi_outbuf.t -> 'a -> unit) ->
+  (Buffer.t -> 'a -> unit) ->
   ?len:int -> 'a p' -> string
   (** Serialize a value of type {!p'}
       into a JSON string.
@@ -234,8 +234,8 @@ val p'_of_string :
 
 
 val write_p :
-  Bi_outbuf.t -> p -> unit
-  (** Output a JSON value of type {!p}. *)
+  Buffer.t -> p -> unit
+  (** Output a JSON value of type {!type:p}. *)
 
 val string_of_p :
   ?len:int -> p -> string
@@ -255,8 +255,8 @@ val p_of_string :
 
 
 val write_r :
-  Bi_outbuf.t -> r -> unit
-  (** Output a JSON value of type {!r}. *)
+  Buffer.t -> r -> unit
+  (** Output a JSON value of type {!type:r}. *)
 
 val string_of_r :
   ?len:int -> r -> string
@@ -283,8 +283,8 @@ val create_r :
 
 
 val write_validated_string_check :
-  Bi_outbuf.t -> validated_string_check -> unit
-  (** Output a JSON value of type {!validated_string_check}. *)
+  Buffer.t -> validated_string_check -> unit
+  (** Output a JSON value of type {!type:validated_string_check}. *)
 
 val string_of_validated_string_check :
   ?len:int -> validated_string_check -> string
@@ -304,8 +304,8 @@ val validated_string_check_of_string :
 
 
 val write_validate_me :
-  Bi_outbuf.t -> validate_me -> unit
-  (** Output a JSON value of type {!validate_me}. *)
+  Buffer.t -> validate_me -> unit
+  (** Output a JSON value of type {!type:validate_me}. *)
 
 val string_of_validate_me :
   ?len:int -> validate_me -> string
@@ -325,8 +325,8 @@ val validate_me_of_string :
 
 
 val write_val1 :
-  Bi_outbuf.t -> val1 -> unit
-  (** Output a JSON value of type {!val1}. *)
+  Buffer.t -> val1 -> unit
+  (** Output a JSON value of type {!type:val1}. *)
 
 val string_of_val1 :
   ?len:int -> val1 -> string
@@ -351,8 +351,8 @@ val create_val1 :
 
 
 val write_val2 :
-  Bi_outbuf.t -> val2 -> unit
-  (** Output a JSON value of type {!val2}. *)
+  Buffer.t -> val2 -> unit
+  (** Output a JSON value of type {!type:val2}. *)
 
 val string_of_val2 :
   ?len:int -> val2 -> string
@@ -378,8 +378,8 @@ val create_val2 :
 
 
 val write_unixtime_list :
-  Bi_outbuf.t -> unixtime_list -> unit
-  (** Output a JSON value of type {!unixtime_list}. *)
+  Buffer.t -> unixtime_list -> unit
+  (** Output a JSON value of type {!type:unixtime_list}. *)
 
 val string_of_unixtime_list :
   ?len:int -> unixtime_list -> string
@@ -399,8 +399,8 @@ val unixtime_list_of_string :
 
 
 val write_date :
-  Bi_outbuf.t -> date -> unit
-  (** Output a JSON value of type {!date}. *)
+  Buffer.t -> date -> unit
+  (** Output a JSON value of type {!type:date}. *)
 
 val string_of_date :
   ?len:int -> date -> string
@@ -420,8 +420,8 @@ val date_of_string :
 
 
 val write_mixed_record :
-  Bi_outbuf.t -> mixed_record -> unit
-  (** Output a JSON value of type {!mixed_record}. *)
+  Buffer.t -> mixed_record -> unit
+  (** Output a JSON value of type {!type:mixed_record}. *)
 
 val string_of_mixed_record :
   ?len:int -> mixed_record -> string
@@ -460,8 +460,8 @@ val create_mixed_record :
 
 
 val write_mixed :
-  Bi_outbuf.t -> mixed -> unit
-  (** Output a JSON value of type {!mixed}. *)
+  Buffer.t -> mixed -> unit
+  (** Output a JSON value of type {!type:mixed}. *)
 
 val string_of_mixed :
   ?len:int -> mixed -> string
@@ -481,8 +481,8 @@ val mixed_of_string :
 
 
 val write_test :
-  Bi_outbuf.t -> test -> unit
-  (** Output a JSON value of type {!test}. *)
+  Buffer.t -> test -> unit
+  (** Output a JSON value of type {!type:test}. *)
 
 val string_of_test :
   ?len:int -> test -> string
@@ -511,8 +511,8 @@ val create_test :
 
 
 val write_tup :
-  Bi_outbuf.t -> tup -> unit
-  (** Output a JSON value of type {!tup}. *)
+  Buffer.t -> tup -> unit
+  (** Output a JSON value of type {!type:tup}. *)
 
 val string_of_tup :
   ?len:int -> tup -> string
@@ -532,8 +532,8 @@ val tup_of_string :
 
 
 val write_star_rating :
-  Bi_outbuf.t -> star_rating -> unit
-  (** Output a JSON value of type {!star_rating}. *)
+  Buffer.t -> star_rating -> unit
+  (** Output a JSON value of type {!type:star_rating}. *)
 
 val string_of_star_rating :
   ?len:int -> star_rating -> string
@@ -553,12 +553,12 @@ val star_rating_of_string :
 
 
 val write_generic :
-  (Bi_outbuf.t -> 'a -> unit) ->
-  Bi_outbuf.t -> 'a generic -> unit
-  (** Output a JSON value of type {!generic}. *)
+  (Buffer.t -> 'a -> unit) ->
+  Buffer.t -> 'a generic -> unit
+  (** Output a JSON value of type {!type:generic}. *)
 
 val string_of_generic :
-  (Bi_outbuf.t -> 'a -> unit) ->
+  (Buffer.t -> 'a -> unit) ->
   ?len:int -> 'a generic -> string
   (** Serialize a value of type {!generic}
       into a JSON string.
@@ -583,8 +583,8 @@ val create_generic :
 
 
 val write_specialized :
-  Bi_outbuf.t -> specialized -> unit
-  (** Output a JSON value of type {!specialized}. *)
+  Buffer.t -> specialized -> unit
+  (** Output a JSON value of type {!type:specialized}. *)
 
 val string_of_specialized :
   ?len:int -> specialized -> string
@@ -604,8 +604,8 @@ val specialized_of_string :
 
 
 val write_some_record :
-  Bi_outbuf.t -> some_record -> unit
-  (** Output a JSON value of type {!some_record}. *)
+  Buffer.t -> some_record -> unit
+  (** Output a JSON value of type {!type:some_record}. *)
 
 val string_of_some_record :
   ?len:int -> some_record -> string
@@ -630,8 +630,8 @@ val create_some_record :
 
 
 val write_precision :
-  Bi_outbuf.t -> precision -> unit
-  (** Output a JSON value of type {!precision}. *)
+  Buffer.t -> precision -> unit
+  (** Output a JSON value of type {!type:precision}. *)
 
 val string_of_precision :
   ?len:int -> precision -> string
@@ -658,8 +658,8 @@ val create_precision :
 
 
 val write_p'' :
-  Bi_outbuf.t -> p'' -> unit
-  (** Output a JSON value of type {!p''}. *)
+  Buffer.t -> p'' -> unit
+  (** Output a JSON value of type {!type:p''}. *)
 
 val string_of_p'' :
   ?len:int -> p'' -> string
@@ -679,8 +679,8 @@ val p''_of_string :
 
 
 val write_option_validation :
-  Bi_outbuf.t -> option_validation -> unit
-  (** Output a JSON value of type {!option_validation}. *)
+  Buffer.t -> option_validation -> unit
+  (** Output a JSON value of type {!type:option_validation}. *)
 
 val string_of_option_validation :
   ?len:int -> option_validation -> string
@@ -700,8 +700,8 @@ val option_validation_of_string :
 
 
 val write_no_real_wrap :
-  Bi_outbuf.t -> no_real_wrap -> unit
-  (** Output a JSON value of type {!no_real_wrap}. *)
+  Buffer.t -> no_real_wrap -> unit
+  (** Output a JSON value of type {!type:no_real_wrap}. *)
 
 val string_of_no_real_wrap :
   ?len:int -> no_real_wrap -> string
@@ -721,8 +721,8 @@ val no_real_wrap_of_string :
 
 
 val write_natural :
-  Bi_outbuf.t -> natural -> unit
-  (** Output a JSON value of type {!natural}. *)
+  Buffer.t -> natural -> unit
+  (** Output a JSON value of type {!type:natural}. *)
 
 val string_of_natural :
   ?len:int -> natural -> string
@@ -742,8 +742,8 @@ val natural_of_string :
 
 
 val write_id :
-  Bi_outbuf.t -> id -> unit
-  (** Output a JSON value of type {!id}. *)
+  Buffer.t -> id -> unit
+  (** Output a JSON value of type {!type:id}. *)
 
 val string_of_id :
   ?len:int -> id -> string
@@ -763,8 +763,8 @@ val id_of_string :
 
 
 val write_json_map :
-  Bi_outbuf.t -> json_map -> unit
-  (** Output a JSON value of type {!json_map}. *)
+  Buffer.t -> json_map -> unit
+  (** Output a JSON value of type {!type:json_map}. *)
 
 val string_of_json_map :
   ?len:int -> json_map -> string
@@ -784,8 +784,8 @@ val json_map_of_string :
 
 
 val write_intopt :
-  Bi_outbuf.t -> intopt -> unit
-  (** Output a JSON value of type {!intopt}. *)
+  Buffer.t -> intopt -> unit
+  (** Output a JSON value of type {!type:intopt}. *)
 
 val string_of_intopt :
   ?len:int -> intopt -> string
@@ -805,8 +805,8 @@ val intopt_of_string :
 
 
 val write_int_assoc_list :
-  Bi_outbuf.t -> int_assoc_list -> unit
-  (** Output a JSON value of type {!int_assoc_list}. *)
+  Buffer.t -> int_assoc_list -> unit
+  (** Output a JSON value of type {!type:int_assoc_list}. *)
 
 val string_of_int_assoc_list :
   ?len:int -> int_assoc_list -> string
@@ -826,8 +826,8 @@ val int_assoc_list_of_string :
 
 
 val write_int_assoc_array :
-  Bi_outbuf.t -> int_assoc_array -> unit
-  (** Output a JSON value of type {!int_assoc_array}. *)
+  Buffer.t -> int_assoc_array -> unit
+  (** Output a JSON value of type {!type:int_assoc_array}. *)
 
 val string_of_int_assoc_array :
   ?len:int -> int_assoc_array -> string
@@ -847,8 +847,8 @@ val int_assoc_array_of_string :
 
 
 val write_int8 :
-  Bi_outbuf.t -> int8 -> unit
-  (** Output a JSON value of type {!int8}. *)
+  Buffer.t -> int8 -> unit
+  (** Output a JSON value of type {!type:int8}. *)
 
 val string_of_int8 :
   ?len:int -> int8 -> string
@@ -868,8 +868,8 @@ val int8_of_string :
 
 
 val write_int64 :
-  Bi_outbuf.t -> int64 -> unit
-  (** Output a JSON value of type {!int64}. *)
+  Buffer.t -> int64 -> unit
+  (** Output a JSON value of type {!type:int64}. *)
 
 val string_of_int64 :
   ?len:int -> int64 -> string
@@ -889,8 +889,8 @@ val int64_of_string :
 
 
 val write_int32 :
-  Bi_outbuf.t -> int32 -> unit
-  (** Output a JSON value of type {!int32}. *)
+  Buffer.t -> int32 -> unit
+  (** Output a JSON value of type {!type:int32}. *)
 
 val string_of_int32 :
   ?len:int -> int32 -> string
@@ -910,8 +910,8 @@ val int32_of_string :
 
 
 val write_hello :
-  Bi_outbuf.t -> hello -> unit
-  (** Output a JSON value of type {!hello}. *)
+  Buffer.t -> hello -> unit
+  (** Output a JSON value of type {!type:hello}. *)
 
 val string_of_hello :
   ?len:int -> hello -> string
@@ -931,8 +931,8 @@ val hello_of_string :
 
 
 val write_floats :
-  Bi_outbuf.t -> floats -> unit
-  (** Output a JSON value of type {!floats}. *)
+  Buffer.t -> floats -> unit
+  (** Output a JSON value of type {!type:floats}. *)
 
 val string_of_floats :
   ?len:int -> floats -> string
@@ -958,8 +958,8 @@ val create_floats :
 
 
 val write_extended_tuple :
-  Bi_outbuf.t -> extended_tuple -> unit
-  (** Output a JSON value of type {!extended_tuple}. *)
+  Buffer.t -> extended_tuple -> unit
+  (** Output a JSON value of type {!type:extended_tuple}. *)
 
 val string_of_extended_tuple :
   ?len:int -> extended_tuple -> string
@@ -979,8 +979,8 @@ val extended_tuple_of_string :
 
 
 val write_extended :
-  Bi_outbuf.t -> extended -> unit
-  (** Output a JSON value of type {!extended}. *)
+  Buffer.t -> extended -> unit
+  (** Output a JSON value of type {!type:extended}. *)
 
 val string_of_extended :
   ?len:int -> extended -> string
@@ -1010,8 +1010,8 @@ val create_extended :
 
 
 val write_even_natural :
-  Bi_outbuf.t -> even_natural -> unit
-  (** Output a JSON value of type {!even_natural}. *)
+  Buffer.t -> even_natural -> unit
+  (** Output a JSON value of type {!type:even_natural}. *)
 
 val string_of_even_natural :
   ?len:int -> even_natural -> string
@@ -1031,8 +1031,8 @@ val even_natural_of_string :
 
 
 val write_def :
-  Bi_outbuf.t -> def -> unit
-  (** Output a JSON value of type {!def}. *)
+  Buffer.t -> def -> unit
+  (** Output a JSON value of type {!type:def}. *)
 
 val string_of_def :
   ?len:int -> def -> string
@@ -1052,8 +1052,8 @@ val def_of_string :
 
 
 val write_char :
-  Bi_outbuf.t -> char -> unit
-  (** Output a JSON value of type {!char}. *)
+  Buffer.t -> char -> unit
+  (** Output a JSON value of type {!type:char}. *)
 
 val string_of_char :
   ?len:int -> char -> string
@@ -1073,8 +1073,8 @@ val char_of_string :
 
 
 val write_base_tuple :
-  Bi_outbuf.t -> base_tuple -> unit
-  (** Output a JSON value of type {!base_tuple}. *)
+  Buffer.t -> base_tuple -> unit
+  (** Output a JSON value of type {!type:base_tuple}. *)
 
 val string_of_base_tuple :
   ?len:int -> base_tuple -> string
@@ -1094,8 +1094,8 @@ val base_tuple_of_string :
 
 
 val write_base :
-  Bi_outbuf.t -> base -> unit
-  (** Output a JSON value of type {!base}. *)
+  Buffer.t -> base -> unit
+  (** Output a JSON value of type {!type:base}. *)
 
 val string_of_base :
   ?len:int -> base -> string
@@ -1121,12 +1121,12 @@ val create_base :
 
 
 val write_array :
-  (Bi_outbuf.t -> 'a -> unit) ->
-  Bi_outbuf.t -> 'a array -> unit
-  (** Output a JSON value of type {!array}. *)
+  (Buffer.t -> 'a -> unit) ->
+  Buffer.t -> 'a array -> unit
+  (** Output a JSON value of type {!type:array}. *)
 
 val string_of_array :
-  (Bi_outbuf.t -> 'a -> unit) ->
+  (Buffer.t -> 'a -> unit) ->
   ?len:int -> 'a array -> string
   (** Serialize a value of type {!array}
       into a JSON string.
@@ -1146,12 +1146,12 @@ val array_of_string :
 
 
 val write_abs3 :
-  (Bi_outbuf.t -> 'a -> unit) ->
-  Bi_outbuf.t -> 'a abs3 -> unit
-  (** Output a JSON value of type {!abs3}. *)
+  (Buffer.t -> 'a -> unit) ->
+  Buffer.t -> 'a abs3 -> unit
+  (** Output a JSON value of type {!type:abs3}. *)
 
 val string_of_abs3 :
-  (Bi_outbuf.t -> 'a -> unit) ->
+  (Buffer.t -> 'a -> unit) ->
   ?len:int -> 'a abs3 -> string
   (** Serialize a value of type {!abs3}
       into a JSON string.
@@ -1171,12 +1171,12 @@ val abs3_of_string :
 
 
 val write_abs2 :
-  (Bi_outbuf.t -> 'a -> unit) ->
-  Bi_outbuf.t -> 'a abs2 -> unit
-  (** Output a JSON value of type {!abs2}. *)
+  (Buffer.t -> 'a -> unit) ->
+  Buffer.t -> 'a abs2 -> unit
+  (** Output a JSON value of type {!type:abs2}. *)
 
 val string_of_abs2 :
-  (Bi_outbuf.t -> 'a -> unit) ->
+  (Buffer.t -> 'a -> unit) ->
   ?len:int -> 'a abs2 -> string
   (** Serialize a value of type {!abs2}
       into a JSON string.
@@ -1196,12 +1196,12 @@ val abs2_of_string :
 
 
 val write_abs1 :
-  (Bi_outbuf.t -> 'a -> unit) ->
-  Bi_outbuf.t -> 'a abs1 -> unit
-  (** Output a JSON value of type {!abs1}. *)
+  (Buffer.t -> 'a -> unit) ->
+  Buffer.t -> 'a abs1 -> unit
+  (** Output a JSON value of type {!type:abs1}. *)
 
 val string_of_abs1 :
-  (Bi_outbuf.t -> 'a -> unit) ->
+  (Buffer.t -> 'a -> unit) ->
   ?len:int -> 'a abs1 -> string
   (** Serialize a value of type {!abs1}
       into a JSON string.
