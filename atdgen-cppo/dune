@@ -1,4 +1,4 @@
 (install
  (section bin)
- (package atdgen)
+ (package atdgen-www)
  (files atdgen-cppo cppo-json))

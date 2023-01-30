@@ -43,7 +43,7 @@ property of supporting annotations that allow a good fit with a variety of data
 formats. "))
 
 (package
- (name atdgen)
+ (name atdgen-www)
  (depends
   (ocaml (>= 4.02))
   (dune (>= 1.11))

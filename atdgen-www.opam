@@ -43,7 +43,6 @@ depends: [
   "odoc" {with-doc}
   "re"
 ]
-dev-repo: "git+https://github.com/ahrefs/atd.git"
 build: [
   ["dune" "subst"] {pinned}
   [
@@ -54,6 +53,8 @@ build: [
     "-j"
     jobs
     "@install"
+    "@runtest" {with-test}
     "@doc" {with-doc}
   ]
 ]
+dev-repo: "git+https://github.com/ahrefs/atd.git"
