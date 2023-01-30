@@ -1,7 +1,7 @@
 (library
  (name spec_js)
  (modules spec_t spec_j spec_js spec_bs spec_w)
- (libraries atdgen-runtime atdgen-codec-runtime biniou yojson))
+ (libraries atdgen-www-runtime atdgen-codec-runtime biniou yojson))
 
 (rule
  (targets spec_t.ml spec_t.mli)
@@ -26,7 +26,7 @@
 (executable
  (name test_j)
  (modules test_j)
- (libraries spec_js atdgen-runtime yojson))
+ (libraries spec_js atdgen-www-runtime yojson))
 
 (executable
  (name test_bs)
@@ -36,7 +36,7 @@
 (executable
  (name test_w)
  (modules test_w)
- (libraries spec_js atdgen-runtime yojson))
+ (libraries spec_js atdgen-www-runtime yojson))
 
 (rule
  (targets spec_j.json)

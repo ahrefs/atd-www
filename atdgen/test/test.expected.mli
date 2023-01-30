@@ -35,11 +35,11 @@ type mixed_record = {
   field1: float option;
   field2: string option;
   field3: Int64.t;
-  field4: float Atdgen_runtime.Util.ocaml_array;
+  field4: float Atdgen_www_runtime.Util.ocaml_array;
   field5: bool option;
   field6: string option;
   field7: test_variant;
-  field8: string Atdgen_runtime.Util.ocaml_array;
+  field8: string Atdgen_www_runtime.Util.ocaml_array;
   field9: (int * int * Char.t * int * Int32.t * Int64.t);
   field10: bool;
   field11: bool;
@@ -50,8 +50,8 @@ type mixed_record = {
 
 type mixed =
   (
-      mixed_record Atdgen_runtime.Util.ocaml_array
-    * mixed_record Atdgen_runtime.Util.ocaml_array
+      mixed_record Atdgen_www_runtime.Util.ocaml_array
+    * mixed_record Atdgen_www_runtime.Util.ocaml_array
   ) list
 
 type test = {
@@ -90,7 +90,7 @@ type intopt = int option
 
 type int_assoc_list = (string * int) list
 
-type int_assoc_array = (string * int) Atdgen_runtime.Util.ocaml_array
+type int_assoc_array = (string * int) Atdgen_www_runtime.Util.ocaml_array
 
 type int8 = int
 
@@ -153,7 +153,7 @@ type base_tuple = (int * float)
 
 type base = { b0: int; b1: bool }
 
-type 'a array = 'a Atdgen_runtime.Util.ocaml_array
+type 'a array = 'a Atdgen_www_runtime.Util.ocaml_array
 
 type 'a abs3 = 'a list
 
@@ -678,11 +678,11 @@ val create_mixed_record :
   ?field1: float ->
   field2: string option ->
   field3: Int64.t ->
-  field4: float Atdgen_runtime.Util.ocaml_array ->
+  field4: float Atdgen_www_runtime.Util.ocaml_array ->
   ?field5: bool ->
   ?field6: string ->
   field7: test_variant ->
-  field8: string Atdgen_runtime.Util.ocaml_array ->
+  field8: string Atdgen_www_runtime.Util.ocaml_array ->
   field9: (int * int * Char.t * int * Int32.t * Int64.t) ->
   field10: bool ->
   ?field11: bool ->

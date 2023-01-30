@@ -35,11 +35,11 @@ type mixed_record = {
   field1: float option;
   field2: string option;
   field3: Int64.t;
-  field4: float Atdgen_runtime.Util.ocaml_array;
+  field4: float Atdgen_www_runtime.Util.ocaml_array;
   field5: bool option;
   field6: string option;
   field7: test_variant;
-  field8: string Atdgen_runtime.Util.ocaml_array;
+  field8: string Atdgen_www_runtime.Util.ocaml_array;
   field9: (int * int * Char.t * int * Int32.t * Int64.t);
   field10: bool;
   field11: bool;
@@ -50,8 +50,8 @@ type mixed_record = {
 
 type mixed =
   (
-      mixed_record Atdgen_runtime.Util.ocaml_array
-    * mixed_record Atdgen_runtime.Util.ocaml_array
+      mixed_record Atdgen_www_runtime.Util.ocaml_array
+    * mixed_record Atdgen_www_runtime.Util.ocaml_array
   ) list
 
 type test = {
@@ -90,7 +90,7 @@ type intopt = int option
 
 type int_assoc_list = (string * int) list
 
-type int_assoc_array = (string * int) Atdgen_runtime.Util.ocaml_array
+type int_assoc_array = (string * int) Atdgen_www_runtime.Util.ocaml_array
 
 type int8 = int
 
@@ -153,7 +153,7 @@ type base_tuple = (int * float)
 
 type base = { b0: int; b1: bool }
 
-type 'a array = 'a Atdgen_runtime.Util.ocaml_array
+type 'a array = 'a Atdgen_www_runtime.Util.ocaml_array
 
 type 'a abs3 = 'a list
 
@@ -163,7 +163,7 @@ type 'a abs1 = 'a list
 
 let _19_tag = Bi_io.array_tag
 let write_untagged__19 _a_tag write_untagged__a write__a = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     _a_tag
     (
       write_untagged__a
@@ -177,12 +177,12 @@ let string_of__19 _a_tag write_untagged__a write__a ?(len = 1024) x =
   write__19 _a_tag write_untagged__a write__a ob x;
   Bi_outbuf.contents ob
 let get__19_reader get__a_reader read__a = (
-  Atdgen_runtime.Ob_run.get_list_reader (
+  Atdgen_www_runtime.Ob_run.get_list_reader (
     get__a_reader
   )
 )
 let read__19 get__a_reader read__a = (
-  Atdgen_runtime.Ob_run.read_list (
+  Atdgen_www_runtime.Ob_run.read_list (
     get__a_reader
   )
 )
@@ -213,7 +213,7 @@ and string_of_p' _a_tag write_untagged__a write__a ?(len = 1024) x =
   Bi_outbuf.contents ob
 let rec get_p'_reader get__a_reader read__a = (
   fun tag ->
-    if tag <> 23 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 23 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         Bi_io.read_hashtag ib (fun ib h has_arg ->
           match h, has_arg with
@@ -228,12 +228,12 @@ let rec get_p'_reader get__a_reader read__a = (
                   read__a
                 ) ib
               ) : 'a p')
-            | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+            | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
         )
 )
 and read_p' get__a_reader read__a = (
   fun ib ->
-    if Bi_io.read_tag ib <> 23 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 23 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     Bi_io.read_hashtag ib (fun ib h has_arg ->
       match h, has_arg with
         | 65, false -> (A : 'a p')
@@ -247,7 +247,7 @@ and read_p' get__a_reader read__a = (
               read__a
             ) ib
           ) : 'a p')
-        | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+        | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
     )
 )
 and p'_of_string get__a_reader read__a ?pos s =
@@ -297,7 +297,7 @@ and string_of_r ?(len = 1024) x =
   Bi_outbuf.contents ob
 let rec get_p_reader = (
   fun tag ->
-    if tag <> 23 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 23 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         Bi_io.read_hashtag ib (fun ib h has_arg ->
           match h, has_arg with
@@ -308,12 +308,12 @@ let rec get_p_reader = (
                 ) ib
               ))
             | 67, false -> `C
-            | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+            | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
         )
 )
 and read_p = (
   fun ib ->
-    if Bi_io.read_tag ib <> 23 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 23 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     Bi_io.read_hashtag ib (fun ib h has_arg ->
       match h, has_arg with
         | 65, false -> `A
@@ -323,14 +323,14 @@ and read_p = (
             ) ib
           ))
         | 67, false -> `C
-        | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+        | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
     )
 )
 and p_of_string ?pos s =
   read_p (Bi_inbuf.from_string ?pos s)
 and get_r_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_a = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_b = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -342,14 +342,14 @@ and get_r_reader = (
             | 97 ->
               field_a := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | 98 ->
               field_b := (
                 (
-                  Atdgen_runtime.Ob_run.read_bool
+                  Atdgen_www_runtime.Ob_run.read_bool
                 ) ib
               );
               bits0 := !bits0 lor 0x2;
@@ -362,7 +362,7 @@ and get_r_reader = (
               bits0 := !bits0 lor 0x4;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x7 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "a"; "b"; "c" |];
+        if !bits0 <> 0x7 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "a"; "b"; "c" |];
         (
           {
             a = !field_a;
@@ -373,7 +373,7 @@ and get_r_reader = (
 )
 and read_r = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_a = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_b = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_c = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -384,14 +384,14 @@ and read_r = (
         | 97 ->
           field_a := (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | 98 ->
           field_b := (
             (
-              Atdgen_runtime.Ob_run.read_bool
+              Atdgen_www_runtime.Ob_run.read_bool
             ) ib
           );
           bits0 := !bits0 lor 0x2;
@@ -404,7 +404,7 @@ and read_r = (
           bits0 := !bits0 lor 0x4;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x7 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "a"; "b"; "c" |];
+    if !bits0 <> 0x7 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "a"; "b"; "c" |];
     (
       {
         a = !field_a;
@@ -417,7 +417,7 @@ and r_of_string ?pos s =
   read_r (Bi_inbuf.from_string ?pos s)
 let rec _20_tag = Bi_io.num_variant_tag
 and write_untagged__20 _a_tag write_untagged__a write__a _b_tag write_untagged__b write__b ob x = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     write_poly _a_tag write_untagged__a write__a _b_tag write_untagged__b write__b
   )
 ) ob x
@@ -450,7 +450,7 @@ and string_of_poly _x_tag write_untagged__x write__x _y_tag write_untagged__y wr
   Bi_outbuf.contents ob
 let rec get__20_reader get__a_reader read__a get__b_reader read__b = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
@@ -461,11 +461,11 @@ let rec get__20_reader get__a_reader read__a get__b_reader read__b = (
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 and read__20 get__a_reader read__a get__b_reader read__b = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
@@ -475,13 +475,13 @@ and read__20 get__a_reader read__a get__b_reader read__b = (
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 and _20_of_string get__a_reader read__a get__b_reader read__b ?pos s =
   read__20 get__a_reader read__a get__b_reader read__b (Bi_inbuf.from_string ?pos s)
 and get_poly_reader get__x_reader read__x get__y_reader read__y = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_fst = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_snd = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -505,7 +505,7 @@ and get_poly_reader get__x_reader read__x get__y_reader read__y = (
               bits0 := !bits0 lor 0x2;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x3 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "fst"; "snd" |];
+        if !bits0 <> 0x3 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "fst"; "snd" |];
         (
           {
             fst = !field_fst;
@@ -515,7 +515,7 @@ and get_poly_reader get__x_reader read__x get__y_reader read__y = (
 )
 and read_poly get__x_reader read__x get__y_reader read__y = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_fst = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_snd = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let bits0 = ref 0 in
@@ -538,7 +538,7 @@ and read_poly get__x_reader read__x get__y_reader read__y = (
           bits0 := !bits0 lor 0x2;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x3 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "fst"; "snd" |];
+    if !bits0 <> 0x3 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "fst"; "snd" |];
     (
       {
         fst = !field_fst;
@@ -550,7 +550,7 @@ and poly_of_string get__x_reader read__x get__y_reader read__y ?pos s =
   read_poly get__x_reader read__x get__y_reader read__y (Bi_inbuf.from_string ?pos s)
 let rec _2_tag = Bi_io.array_tag
 and write_untagged__2 ob x = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     test_variant_tag
     (
       write_untagged_test_variant
@@ -592,12 +592,12 @@ and string_of_test_variant ?(len = 1024) x =
   write_test_variant ob x;
   Bi_outbuf.contents ob
 let rec get__2_reader tag = (
-  Atdgen_runtime.Ob_run.get_list_reader (
+  Atdgen_www_runtime.Ob_run.get_list_reader (
     get_test_variant_reader
   )
 ) tag
 and read__2 ib = (
-  Atdgen_runtime.Ob_run.read_list (
+  Atdgen_www_runtime.Ob_run.read_list (
     get_test_variant_reader
   )
 ) ib
@@ -605,19 +605,19 @@ and _2_of_string ?pos s =
   read__2 (Bi_inbuf.from_string ?pos s)
 and get_test_variant_reader = (
   fun tag ->
-    if tag <> 23 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 23 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         Bi_io.read_hashtag ib (fun ib h has_arg ->
           match h, has_arg with
             | -733074591, false -> `Case1
             | -733074590, true -> (`Case2 (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               ))
             | -733074589, true -> (`Case3 (
                 (
-                  Atdgen_runtime.Ob_run.read_string
+                  Atdgen_www_runtime.Ob_run.read_string
                 ) ib
               ))
             | -733074588, true -> (`Case4 (
@@ -625,23 +625,23 @@ and get_test_variant_reader = (
                   read__2
                 ) ib
               ))
-            | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+            | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
         )
 )
 and read_test_variant = (
   fun ib ->
-    if Bi_io.read_tag ib <> 23 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 23 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     Bi_io.read_hashtag ib (fun ib h has_arg ->
       match h, has_arg with
         | -733074591, false -> `Case1
         | -733074590, true -> (`Case2 (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           ))
         | -733074589, true -> (`Case3 (
             (
-              Atdgen_runtime.Ob_run.read_string
+              Atdgen_www_runtime.Ob_run.read_string
             ) ib
           ))
         | -733074588, true -> (`Case4 (
@@ -649,7 +649,7 @@ and read_test_variant = (
               read__2
             ) ib
           ))
-        | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+        | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
     )
 )
 and test_variant_of_string ?pos s =
@@ -679,7 +679,7 @@ and string_of__1 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let rec get__1_reader = (
   fun tag ->
-    if tag <> 23 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 23 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         Bi_io.read_hashtag ib (fun ib h has_arg ->
           match h, has_arg with
@@ -691,15 +691,15 @@ let rec get__1_reader = (
               ) : _ p')
             | -711691517, true -> (Ccccc (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               ) : _ p')
-            | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+            | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
         )
 )
 and read__1 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 23 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 23 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     Bi_io.read_hashtag ib (fun ib h has_arg ->
       match h, has_arg with
         | 65, false -> (A : _ p')
@@ -710,10 +710,10 @@ and read__1 = (
           ) : _ p')
         | -711691517, true -> (Ccccc (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           ) : _ p')
-        | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+        | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
     )
 )
 and _1_of_string ?pos s =
@@ -730,16 +730,16 @@ let string_of_validated_string_check ?(len = 1024) x =
   write_validated_string_check ob x;
   Bi_outbuf.contents ob
 let get_validated_string_check_reader = (
-  Atdgen_runtime.Ob_run.get_string_reader
+  Atdgen_www_runtime.Ob_run.get_string_reader
 )
 let read_validated_string_check = (
-  Atdgen_runtime.Ob_run.read_string
+  Atdgen_www_runtime.Ob_run.read_string
 )
 let validated_string_check_of_string ?pos s =
   read_validated_string_check (Bi_inbuf.from_string ?pos s)
 let _31_tag = Bi_io.array_tag
 let write_untagged__31 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     Bi_io.string_tag
     (
       Bi_io.write_untagged_string
@@ -753,13 +753,13 @@ let string_of__31 ?(len = 1024) x =
   write__31 ob x;
   Bi_outbuf.contents ob
 let get__31_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
-    Atdgen_runtime.Ob_run.get_string_reader
+  Atdgen_www_runtime.Ob_run.get_list_reader (
+    Atdgen_www_runtime.Ob_run.get_string_reader
   )
 )
 let read__31 = (
-  Atdgen_runtime.Ob_run.read_list (
-    Atdgen_runtime.Ob_run.get_string_reader
+  Atdgen_www_runtime.Ob_run.read_list (
+    Atdgen_www_runtime.Ob_run.get_string_reader
   )
 )
 let _31_of_string ?pos s =
@@ -801,7 +801,7 @@ let string_of_val1 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_val1_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_val1_x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let bits0 = ref 0 in
@@ -811,13 +811,13 @@ let get_val1_reader = (
             | -813472407 ->
               field_val1_x := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "val1_x" |];
+        if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "val1_x" |];
         (
           {
             val1_x = !field_val1_x;
@@ -826,7 +826,7 @@ let get_val1_reader = (
 )
 let read_val1 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_val1_x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let bits0 = ref 0 in
     let len = Bi_vint.read_uvint ib in
@@ -835,13 +835,13 @@ let read_val1 = (
         | -813472407 ->
           field_val1_x := (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "val1_x" |];
+    if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "val1_x" |];
     (
       {
         val1_x = !field_val1_x;
@@ -852,7 +852,7 @@ let val1_of_string ?pos s =
   read_val1 (Bi_inbuf.from_string ?pos s)
 let _16_tag = Bi_io.num_variant_tag
 let write_untagged__16 = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     write_val1
   )
 )
@@ -865,7 +865,7 @@ let string_of__16 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__16_reader = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
@@ -876,11 +876,11 @@ let get__16_reader = (
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let read__16 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
@@ -890,7 +890,7 @@ let read__16 = (
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _16_of_string ?pos s =
   read__16 (Bi_inbuf.from_string ?pos s)
@@ -921,7 +921,7 @@ let string_of_val2 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_val2_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_val2_x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_val2_y = ref (None) in
@@ -946,7 +946,7 @@ let get_val2_reader = (
               );
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "val2_x" |];
+        if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "val2_x" |];
         (
           {
             val2_x = !field_val2_x;
@@ -956,7 +956,7 @@ let get_val2_reader = (
 )
 let read_val2 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_val2_x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_val2_y = ref (None) in
     let bits0 = ref 0 in
@@ -980,7 +980,7 @@ let read_val2 = (
           );
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "val2_x" |];
+    if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "val2_x" |];
     (
       {
         val2_x = !field_val2_x;
@@ -992,7 +992,7 @@ let val2_of_string ?pos s =
   read_val2 (Bi_inbuf.from_string ?pos s)
 let _29_tag = Bi_io.array_tag
 let write_untagged__29 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     Bi_io.float64_tag
     (
       Bi_io.write_untagged_float64
@@ -1006,13 +1006,13 @@ let string_of__29 ?(len = 1024) x =
   write__29 ob x;
   Bi_outbuf.contents ob
 let get__29_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
-    Atdgen_runtime.Ob_run.get_float64_reader
+  Atdgen_www_runtime.Ob_run.get_list_reader (
+    Atdgen_www_runtime.Ob_run.get_float64_reader
   )
 )
 let read__29 = (
-  Atdgen_runtime.Ob_run.read_list (
-    Atdgen_runtime.Ob_run.get_float64_reader
+  Atdgen_www_runtime.Ob_run.read_list (
+    Atdgen_www_runtime.Ob_run.get_float64_reader
   )
 )
 let _29_of_string ?pos s =
@@ -1038,7 +1038,7 @@ let unixtime_list_of_string ?pos s =
   read_unixtime_list (Bi_inbuf.from_string ?pos s)
 let _3_tag = Bi_io.num_variant_tag
 let write_untagged__3 = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     Bi_io.write_svint
   )
 )
@@ -1051,32 +1051,32 @@ let string_of__3 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__3_reader = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
           | 0x80 ->
             Some (
               (
-                Atdgen_runtime.Ob_run.read_int
+                Atdgen_www_runtime.Ob_run.read_int
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let read__3 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
         Some (
           (
-            Atdgen_runtime.Ob_run.read_int
+            Atdgen_www_runtime.Ob_run.read_int
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _3_of_string ?pos s =
   read__3 (Bi_inbuf.from_string ?pos s)
@@ -1109,13 +1109,13 @@ let string_of_date ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_date_reader = (
   fun tag ->
-    if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let len = Bi_vint.read_uvint ib in
-        if len < 3 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2 ];
+        if len < 3 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2 ];
         let x0 =
           (
-            Atdgen_runtime.Ob_run.read_int
+            Atdgen_www_runtime.Ob_run.read_int
           ) ib
         in
         let x1 =
@@ -1133,12 +1133,12 @@ let get_date_reader = (
 )
 let read_date = (
   fun ib ->
-    if Bi_io.read_tag ib <> 20 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 20 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let len = Bi_vint.read_uvint ib in
-    if len < 3 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2 ];
+    if len < 3 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2 ];
     let x0 =
       (
-        Atdgen_runtime.Ob_run.read_int
+        Atdgen_www_runtime.Ob_run.read_int
       ) ib
     in
     let x1 =
@@ -1158,7 +1158,7 @@ let date_of_string ?pos s =
   read_date (Bi_inbuf.from_string ?pos s)
 let _9_tag = Bi_io.array_tag
 let write_untagged__9 = (
-  Atdgen_runtime.Ob_run.write_untagged_array
+  Atdgen_www_runtime.Ob_run.write_untagged_array
     Bi_io.string_tag
     (
       Bi_io.write_untagged_string
@@ -1172,20 +1172,20 @@ let string_of__9 ?(len = 1024) x =
   write__9 ob x;
   Bi_outbuf.contents ob
 let get__9_reader = (
-  Atdgen_runtime.Ob_run.get_array_reader (
-    Atdgen_runtime.Ob_run.get_string_reader
+  Atdgen_www_runtime.Ob_run.get_array_reader (
+    Atdgen_www_runtime.Ob_run.get_string_reader
   )
 )
 let read__9 = (
-  Atdgen_runtime.Ob_run.read_array (
-    Atdgen_runtime.Ob_run.get_string_reader
+  Atdgen_www_runtime.Ob_run.read_array (
+    Atdgen_www_runtime.Ob_run.get_string_reader
   )
 )
 let _9_of_string ?pos s =
   read__9 (Bi_inbuf.from_string ?pos s)
 let _8_tag = Bi_io.num_variant_tag
 let write_untagged__8 = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     Bi_io.write_bool
   )
 )
@@ -1198,38 +1198,38 @@ let string_of__8 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__8_reader = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
           | 0x80 ->
             Some (
               (
-                Atdgen_runtime.Ob_run.read_bool
+                Atdgen_www_runtime.Ob_run.read_bool
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let read__8 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
         Some (
           (
-            Atdgen_runtime.Ob_run.read_bool
+            Atdgen_www_runtime.Ob_run.read_bool
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _8_of_string ?pos s =
   read__8 (Bi_inbuf.from_string ?pos s)
 let _7_tag = Bi_io.array_tag
 let write_untagged__7 = (
-  Atdgen_runtime.Ob_run.write_untagged_array
+  Atdgen_www_runtime.Ob_run.write_untagged_array
     Bi_io.float64_tag
     (
       Bi_io.write_untagged_float64
@@ -1243,20 +1243,20 @@ let string_of__7 ?(len = 1024) x =
   write__7 ob x;
   Bi_outbuf.contents ob
 let get__7_reader = (
-  Atdgen_runtime.Ob_run.get_array_reader (
-    Atdgen_runtime.Ob_run.get_float64_reader
+  Atdgen_www_runtime.Ob_run.get_array_reader (
+    Atdgen_www_runtime.Ob_run.get_float64_reader
   )
 )
 let read__7 = (
-  Atdgen_runtime.Ob_run.read_array (
-    Atdgen_runtime.Ob_run.get_float64_reader
+  Atdgen_www_runtime.Ob_run.read_array (
+    Atdgen_www_runtime.Ob_run.get_float64_reader
   )
 )
 let _7_of_string ?pos s =
   read__7 (Bi_inbuf.from_string ?pos s)
 let _6_tag = Bi_io.num_variant_tag
 let write_untagged__6 = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     Bi_io.write_string
   )
 )
@@ -1269,38 +1269,38 @@ let string_of__6 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__6_reader = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
           | 0x80 ->
             Some (
               (
-                Atdgen_runtime.Ob_run.read_string
+                Atdgen_www_runtime.Ob_run.read_string
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let read__6 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
         Some (
           (
-            Atdgen_runtime.Ob_run.read_string
+            Atdgen_www_runtime.Ob_run.read_string
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _6_of_string ?pos s =
   read__6 (Bi_inbuf.from_string ?pos s)
 let _5_tag = Bi_io.num_variant_tag
 let write_untagged__5 = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     Bi_io.write_float64
   )
 )
@@ -1313,38 +1313,38 @@ let string_of__5 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__5_reader = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
           | 0x80 ->
             Some (
               (
-                Atdgen_runtime.Ob_run.read_float64
+                Atdgen_www_runtime.Ob_run.read_float64
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let read__5 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
         Some (
           (
-            Atdgen_runtime.Ob_run.read_float64
+            Atdgen_www_runtime.Ob_run.read_float64
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _5_of_string ?pos s =
   read__5 (Bi_inbuf.from_string ?pos s)
 let _4_tag = Bi_io.num_variant_tag
 let write_untagged__4 = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     Bi_io.write_svint
   )
 )
@@ -1357,38 +1357,38 @@ let string_of__4 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__4_reader = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
           | 0x80 ->
             Some (
               (
-                Atdgen_runtime.Ob_run.read_int
+                Atdgen_www_runtime.Ob_run.read_int
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let read__4 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
         Some (
           (
-            Atdgen_runtime.Ob_run.read_int
+            Atdgen_www_runtime.Ob_run.read_int
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _4_of_string ?pos s =
   read__4 (Bi_inbuf.from_string ?pos s)
 let _11_tag = Bi_io.array_tag
 let write_untagged__11 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     _6_tag
     (
       write_untagged__6
@@ -1402,12 +1402,12 @@ let string_of__11 ?(len = 1024) x =
   write__11 ob x;
   Bi_outbuf.contents ob
 let get__11_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
+  Atdgen_www_runtime.Ob_run.get_list_reader (
     get__6_reader
   )
 )
 let read__11 = (
-  Atdgen_runtime.Ob_run.read_list (
+  Atdgen_www_runtime.Ob_run.read_list (
     get__6_reader
   )
 )
@@ -1415,7 +1415,7 @@ let _11_of_string ?pos s =
   read__11 (Bi_inbuf.from_string ?pos s)
 let _10_tag = Bi_io.array_tag
 let write_untagged__10 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     Bi_io.unit_tag
     (
       Bi_io.write_untagged_unit
@@ -1429,13 +1429,13 @@ let string_of__10 ?(len = 1024) x =
   write__10 ob x;
   Bi_outbuf.contents ob
 let get__10_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
-    Atdgen_runtime.Ob_run.get_unit_reader
+  Atdgen_www_runtime.Ob_run.get_list_reader (
+    Atdgen_www_runtime.Ob_run.get_unit_reader
   )
 )
 let read__10 = (
-  Atdgen_runtime.Ob_run.read_list (
-    Atdgen_runtime.Ob_run.get_unit_reader
+  Atdgen_www_runtime.Ob_run.read_list (
+    Atdgen_www_runtime.Ob_run.get_unit_reader
   )
 )
 let _10_of_string ?pos s =
@@ -1567,7 +1567,7 @@ let string_of_mixed_record ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_mixed_record_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_field0 = ref (None) in
         let field_field1 = ref (None) in
@@ -1592,7 +1592,7 @@ let get_mixed_record_reader = (
               field_field0 := (
                 Some (
                   (
-                    Atdgen_runtime.Ob_run.read_int
+                    Atdgen_www_runtime.Ob_run.read_int
                   ) ib
                 )
               );
@@ -1600,7 +1600,7 @@ let get_mixed_record_reader = (
               field_field1 := (
                 Some (
                   (
-                    Atdgen_runtime.Ob_run.read_float64
+                    Atdgen_www_runtime.Ob_run.read_float64
                   ) ib
                 )
               );
@@ -1614,7 +1614,7 @@ let get_mixed_record_reader = (
             | 9342521 ->
               field_field3 := (
                 (
-                  Atdgen_runtime.Ob_run.read_int64
+                  Atdgen_www_runtime.Ob_run.read_int64
                 ) ib
               );
               bits0 := !bits0 lor 0x2;
@@ -1629,7 +1629,7 @@ let get_mixed_record_reader = (
               field_field5 := (
                 Some (
                   (
-                    Atdgen_runtime.Ob_run.read_bool
+                    Atdgen_www_runtime.Ob_run.read_bool
                   ) ib
                 )
               );
@@ -1637,7 +1637,7 @@ let get_mixed_record_reader = (
               field_field6 := (
                 Some (
                   (
-                    Atdgen_runtime.Ob_run.read_string
+                    Atdgen_www_runtime.Ob_run.read_string
                   ) ib
                 )
               );
@@ -1659,37 +1659,37 @@ let get_mixed_record_reader = (
               field_field9 := (
                 (
                   fun ib ->
-                    if Bi_io.read_tag ib <> 20 then Atdgen_runtime.Ob_run.read_error_at ib;
+                    if Bi_io.read_tag ib <> 20 then Atdgen_www_runtime.Ob_run.read_error_at ib;
                     let len = Bi_vint.read_uvint ib in
-                    if len < 6 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
+                    if len < 6 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
                     let x0 =
                       (
-                        Atdgen_runtime.Ob_run.read_int
+                        Atdgen_www_runtime.Ob_run.read_int
                       ) ib
                     in
                     let x1 =
                       (
-                        Atdgen_runtime.Ob_run.read_int
+                        Atdgen_www_runtime.Ob_run.read_int
                       ) ib
                     in
                     let x2 =
                       (
-                        Atdgen_runtime.Ob_run.read_char
+                        Atdgen_www_runtime.Ob_run.read_char
                       ) ib
                     in
                     let x3 =
                       (
-                        Atdgen_runtime.Ob_run.read_int
+                        Atdgen_www_runtime.Ob_run.read_int
                       ) ib
                     in
                     let x4 =
                       (
-                        Atdgen_runtime.Ob_run.read_int32
+                        Atdgen_www_runtime.Ob_run.read_int32
                       ) ib
                     in
                     let x5 =
                       (
-                        Atdgen_runtime.Ob_run.read_int64
+                        Atdgen_www_runtime.Ob_run.read_int64
                       ) ib
                     in
                     for i = 6 to len - 1 do Bi_io.skip ib done;
@@ -1700,14 +1700,14 @@ let get_mixed_record_reader = (
             | -64101863 ->
               field_field10 := (
                 (
-                  Atdgen_runtime.Ob_run.read_bool
+                  Atdgen_www_runtime.Ob_run.read_bool
                 ) ib
               );
               bits0 := !bits0 lor 0x40;
             | -64101862 ->
               field_field11 := (
                 (
-                  Atdgen_runtime.Ob_run.read_bool
+                  Atdgen_www_runtime.Ob_run.read_bool
                 ) ib
               );
             | -64101861 ->
@@ -1733,7 +1733,7 @@ let get_mixed_record_reader = (
               bits0 := !bits0 lor 0x200;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x3ff then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
+        if !bits0 <> 0x3ff then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
         (
           {
             field0 = !field_field0;
@@ -1756,7 +1756,7 @@ let get_mixed_record_reader = (
 )
 let read_mixed_record = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_field0 = ref (None) in
     let field_field1 = ref (None) in
     let field_field2 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -1780,7 +1780,7 @@ let read_mixed_record = (
           field_field0 := (
             Some (
               (
-                Atdgen_runtime.Ob_run.read_int
+                Atdgen_www_runtime.Ob_run.read_int
               ) ib
             )
           );
@@ -1788,7 +1788,7 @@ let read_mixed_record = (
           field_field1 := (
             Some (
               (
-                Atdgen_runtime.Ob_run.read_float64
+                Atdgen_www_runtime.Ob_run.read_float64
               ) ib
             )
           );
@@ -1802,7 +1802,7 @@ let read_mixed_record = (
         | 9342521 ->
           field_field3 := (
             (
-              Atdgen_runtime.Ob_run.read_int64
+              Atdgen_www_runtime.Ob_run.read_int64
             ) ib
           );
           bits0 := !bits0 lor 0x2;
@@ -1817,7 +1817,7 @@ let read_mixed_record = (
           field_field5 := (
             Some (
               (
-                Atdgen_runtime.Ob_run.read_bool
+                Atdgen_www_runtime.Ob_run.read_bool
               ) ib
             )
           );
@@ -1825,7 +1825,7 @@ let read_mixed_record = (
           field_field6 := (
             Some (
               (
-                Atdgen_runtime.Ob_run.read_string
+                Atdgen_www_runtime.Ob_run.read_string
               ) ib
             )
           );
@@ -1847,37 +1847,37 @@ let read_mixed_record = (
           field_field9 := (
             (
               fun ib ->
-                if Bi_io.read_tag ib <> 20 then Atdgen_runtime.Ob_run.read_error_at ib;
+                if Bi_io.read_tag ib <> 20 then Atdgen_www_runtime.Ob_run.read_error_at ib;
                 let len = Bi_vint.read_uvint ib in
-                if len < 6 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
+                if len < 6 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
                 let x0 =
                   (
-                    Atdgen_runtime.Ob_run.read_int
+                    Atdgen_www_runtime.Ob_run.read_int
                   ) ib
                 in
                 let x1 =
                   (
-                    Atdgen_runtime.Ob_run.read_int
+                    Atdgen_www_runtime.Ob_run.read_int
                   ) ib
                 in
                 let x2 =
                   (
-                    Atdgen_runtime.Ob_run.read_char
+                    Atdgen_www_runtime.Ob_run.read_char
                   ) ib
                 in
                 let x3 =
                   (
-                    Atdgen_runtime.Ob_run.read_int
+                    Atdgen_www_runtime.Ob_run.read_int
                   ) ib
                 in
                 let x4 =
                   (
-                    Atdgen_runtime.Ob_run.read_int32
+                    Atdgen_www_runtime.Ob_run.read_int32
                   ) ib
                 in
                 let x5 =
                   (
-                    Atdgen_runtime.Ob_run.read_int64
+                    Atdgen_www_runtime.Ob_run.read_int64
                   ) ib
                 in
                 for i = 6 to len - 1 do Bi_io.skip ib done;
@@ -1888,14 +1888,14 @@ let read_mixed_record = (
         | -64101863 ->
           field_field10 := (
             (
-              Atdgen_runtime.Ob_run.read_bool
+              Atdgen_www_runtime.Ob_run.read_bool
             ) ib
           );
           bits0 := !bits0 lor 0x40;
         | -64101862 ->
           field_field11 := (
             (
-              Atdgen_runtime.Ob_run.read_bool
+              Atdgen_www_runtime.Ob_run.read_bool
             ) ib
           );
         | -64101861 ->
@@ -1921,7 +1921,7 @@ let read_mixed_record = (
           bits0 := !bits0 lor 0x200;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x3ff then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
+    if !bits0 <> 0x3ff then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
     (
       {
         field0 = !field_field0;
@@ -1946,7 +1946,7 @@ let mixed_record_of_string ?pos s =
   read_mixed_record (Bi_inbuf.from_string ?pos s)
 let _13_tag = Bi_io.array_tag
 let write_untagged__13 = (
-  Atdgen_runtime.Ob_run.write_untagged_array
+  Atdgen_www_runtime.Ob_run.write_untagged_array
     mixed_record_tag
     (
       write_untagged_mixed_record
@@ -1960,12 +1960,12 @@ let string_of__13 ?(len = 1024) x =
   write__13 ob x;
   Bi_outbuf.contents ob
 let get__13_reader = (
-  Atdgen_runtime.Ob_run.get_array_reader (
+  Atdgen_www_runtime.Ob_run.get_array_reader (
     get_mixed_record_reader
   )
 )
 let read__13 = (
-  Atdgen_runtime.Ob_run.read_array (
+  Atdgen_www_runtime.Ob_run.read_array (
     get_mixed_record_reader
   )
 )
@@ -2008,7 +2008,7 @@ let write_untagged__12 = (
       Bi_io.write_tag ob _11_tag;
       Bi_io.write_hashtag ob (-64101859) true;
       Bi_io.write_tag ob date_tag;
-      Atdgen_runtime.Ob_run.array_iter2 (fun ob x ->
+      Atdgen_www_runtime.Ob_run.array_iter2 (fun ob x ->
         (
           write_untagged__4
         )
@@ -2135,7 +2135,7 @@ let get__12_reader = (
           let field_field14 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
           let bits0 = ref 0 in
           let readers =
-            Atdgen_runtime.Ob_run.array_init2 col_num ib (
+            Atdgen_www_runtime.Ob_run.array_init2 col_num ib (
               fun col ib ->
                 let h = Bi_io.read_field_hashtag ib in
                 let tag = Bi_io.read_tag ib in
@@ -2169,7 +2169,7 @@ let get__12_reader = (
                     bits0 := !bits0 lor 0x2;
                     let read =
                       (
-                        Atdgen_runtime.Ob_run.get_int64_reader
+                        Atdgen_www_runtime.Ob_run.get_int64_reader
                       )
                         tag
                     in
@@ -2222,38 +2222,38 @@ let get__12_reader = (
                     let read =
                       (
                         fun tag ->
-                          if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+                          if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
                             fun ib ->
                               let len = Bi_vint.read_uvint ib in
-                              if len < 6 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
+                              if len < 6 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
                               let x0 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int
+                                  Atdgen_www_runtime.Ob_run.read_int
                                 ) ib
                               in
                               let x1 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int
+                                  Atdgen_www_runtime.Ob_run.read_int
                                 ) ib
                               in
                               let x2 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_char
+                                  Atdgen_www_runtime.Ob_run.read_char
                                 ) ib
                               in
                               let x3 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int
+                                  Atdgen_www_runtime.Ob_run.read_int
                                 ) ib
                               in
                               let x4 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int32
+                                  Atdgen_www_runtime.Ob_run.read_int32
                                 ) ib
                               in
                               let x5 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int64
+                                  Atdgen_www_runtime.Ob_run.read_int64
                                 ) ib
                               in
                               for i = 6 to len - 1 do Bi_io.skip ib done;
@@ -2266,7 +2266,7 @@ let get__12_reader = (
                     bits0 := !bits0 lor 0x40;
                     let read =
                       (
-                        Atdgen_runtime.Ob_run.get_bool_reader
+                        Atdgen_www_runtime.Ob_run.get_bool_reader
                       )
                         tag
                     in
@@ -2274,7 +2274,7 @@ let get__12_reader = (
                   | -64101862 ->
                     let read =
                       (
-                        Atdgen_runtime.Ob_run.get_bool_reader
+                        Atdgen_www_runtime.Ob_run.get_bool_reader
                       )
                         tag
                     in
@@ -2309,7 +2309,7 @@ let get__12_reader = (
                   | _ -> (fun ib -> Bi_io.skip ib)
             )
           in
-          if !bits0 <> 0x3ff then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
+          if !bits0 <> 0x3ff then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
           let a = Array.make row_num (Obj.magic 0) in
           for row = 0 to row_num - 1 do
             for i = 0 to Array.length readers - 1 do
@@ -2338,11 +2338,11 @@ let get__12_reader = (
       )
     | 19 -> 
       (fun ib ->
-        Atdgen_runtime.Ob_run.read_array_value (
+        Atdgen_www_runtime.Ob_run.read_array_value (
           get_mixed_record_reader
         ) ib
       )
-    | _ -> Atdgen_runtime.Ob_run.read_error ()
+    | _ -> Atdgen_www_runtime.Ob_run.read_error ()
 )
 let read__12 = (
   fun ib ->
@@ -2369,7 +2369,7 @@ let read__12 = (
           let field_field14 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
           let bits0 = ref 0 in
           let readers =
-            Atdgen_runtime.Ob_run.array_init2 col_num ib (
+            Atdgen_www_runtime.Ob_run.array_init2 col_num ib (
               fun col ib ->
                 let h = Bi_io.read_field_hashtag ib in
                 let tag = Bi_io.read_tag ib in
@@ -2403,7 +2403,7 @@ let read__12 = (
                     bits0 := !bits0 lor 0x2;
                     let read =
                       (
-                        Atdgen_runtime.Ob_run.get_int64_reader
+                        Atdgen_www_runtime.Ob_run.get_int64_reader
                       )
                         tag
                     in
@@ -2456,38 +2456,38 @@ let read__12 = (
                     let read =
                       (
                         fun tag ->
-                          if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+                          if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
                             fun ib ->
                               let len = Bi_vint.read_uvint ib in
-                              if len < 6 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
+                              if len < 6 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 2; 3; 4; 5 ];
                               let x0 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int
+                                  Atdgen_www_runtime.Ob_run.read_int
                                 ) ib
                               in
                               let x1 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int
+                                  Atdgen_www_runtime.Ob_run.read_int
                                 ) ib
                               in
                               let x2 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_char
+                                  Atdgen_www_runtime.Ob_run.read_char
                                 ) ib
                               in
                               let x3 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int
+                                  Atdgen_www_runtime.Ob_run.read_int
                                 ) ib
                               in
                               let x4 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int32
+                                  Atdgen_www_runtime.Ob_run.read_int32
                                 ) ib
                               in
                               let x5 =
                                 (
-                                  Atdgen_runtime.Ob_run.read_int64
+                                  Atdgen_www_runtime.Ob_run.read_int64
                                 ) ib
                               in
                               for i = 6 to len - 1 do Bi_io.skip ib done;
@@ -2500,7 +2500,7 @@ let read__12 = (
                     bits0 := !bits0 lor 0x40;
                     let read =
                       (
-                        Atdgen_runtime.Ob_run.get_bool_reader
+                        Atdgen_www_runtime.Ob_run.get_bool_reader
                       )
                         tag
                     in
@@ -2508,7 +2508,7 @@ let read__12 = (
                   | -64101862 ->
                     let read =
                       (
-                        Atdgen_runtime.Ob_run.get_bool_reader
+                        Atdgen_www_runtime.Ob_run.get_bool_reader
                       )
                         tag
                     in
@@ -2543,7 +2543,7 @@ let read__12 = (
                   | _ -> (fun ib -> Bi_io.skip ib)
             )
           in
-          if !bits0 <> 0x3ff then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
+          if !bits0 <> 0x3ff then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "field2"; "field3"; "field4"; "field7"; "field8"; "field9"; "field10"; "field12"; "field13"; "field14" |];
           let a = Array.make row_num (Obj.magic 0) in
           for row = 0 to row_num - 1 do
             for i = 0 to Array.length readers - 1 do
@@ -2570,16 +2570,16 @@ let read__12 = (
           done;
           a
       | 19 -> 
-        Atdgen_runtime.Ob_run.read_array_value (
+        Atdgen_www_runtime.Ob_run.read_array_value (
           get_mixed_record_reader
         ) ib
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _12_of_string ?pos s =
   read__12 (Bi_inbuf.from_string ?pos s)
 let _14_tag = Bi_io.array_tag
 let write_untagged__14 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     Bi_io.tuple_tag
     (
       fun ob x ->
@@ -2604,12 +2604,12 @@ let string_of__14 ?(len = 1024) x =
   write__14 ob x;
   Bi_outbuf.contents ob
 let get__14_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
+  Atdgen_www_runtime.Ob_run.get_list_reader (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
               read__12
@@ -2625,12 +2625,12 @@ let get__14_reader = (
   )
 )
 let read__14 = (
-  Atdgen_runtime.Ob_run.read_list (
+  Atdgen_www_runtime.Ob_run.read_list (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
               read__12
@@ -2668,7 +2668,7 @@ let mixed_of_string ?pos s =
   read_mixed (Bi_inbuf.from_string ?pos s)
 let _15_tag = Bi_io.array_tag
 let write_untagged__15 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     mixed_record_tag
     (
       write_untagged_mixed_record
@@ -2682,12 +2682,12 @@ let string_of__15 ?(len = 1024) x =
   write__15 ob x;
   Bi_outbuf.contents ob
 let get__15_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
+  Atdgen_www_runtime.Ob_run.get_list_reader (
     get_mixed_record_reader
   )
 )
 let read__15 = (
-  Atdgen_runtime.Ob_run.read_list (
+  Atdgen_www_runtime.Ob_run.read_list (
     get_mixed_record_reader
   )
 )
@@ -2736,7 +2736,7 @@ let string_of_test ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_test_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_x0 = ref (None) in
         let field_x1 = ref (None) in
@@ -2751,7 +2751,7 @@ let get_test_reader = (
               field_x0 := (
                 Some (
                   (
-                    Atdgen_runtime.Ob_run.read_int
+                    Atdgen_www_runtime.Ob_run.read_int
                   ) ib
                 )
               );
@@ -2759,7 +2759,7 @@ let get_test_reader = (
               field_x1 := (
                 Some (
                   (
-                    Atdgen_runtime.Ob_run.read_float64
+                    Atdgen_www_runtime.Ob_run.read_float64
                   ) ib
                 )
               );
@@ -2780,13 +2780,13 @@ let get_test_reader = (
             | 26812 ->
               field_x4 := (
                 (
-                  Atdgen_runtime.Ob_run.read_int64
+                  Atdgen_www_runtime.Ob_run.read_int64
                 ) ib
               );
               bits0 := !bits0 lor 0x4;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x7 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "x2"; "x3"; "x4" |];
+        if !bits0 <> 0x7 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "x2"; "x3"; "x4" |];
         (
           {
             x0 = !field_x0;
@@ -2799,7 +2799,7 @@ let get_test_reader = (
 )
 let read_test = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_x0 = ref (None) in
     let field_x1 = ref (None) in
     let field_x2 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -2813,7 +2813,7 @@ let read_test = (
           field_x0 := (
             Some (
               (
-                Atdgen_runtime.Ob_run.read_int
+                Atdgen_www_runtime.Ob_run.read_int
               ) ib
             )
           );
@@ -2821,7 +2821,7 @@ let read_test = (
           field_x1 := (
             Some (
               (
-                Atdgen_runtime.Ob_run.read_float64
+                Atdgen_www_runtime.Ob_run.read_float64
               ) ib
             )
           );
@@ -2842,13 +2842,13 @@ let read_test = (
         | 26812 ->
           field_x4 := (
             (
-              Atdgen_runtime.Ob_run.read_int64
+              Atdgen_www_runtime.Ob_run.read_int64
             ) ib
           );
           bits0 := !bits0 lor 0x4;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x7 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "x2"; "x3"; "x4" |];
+    if !bits0 <> 0x7 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "x2"; "x3"; "x4" |];
     (
       {
         x0 = !field_x0;
@@ -2885,13 +2885,13 @@ let string_of_tup ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_tup_reader = (
   fun tag ->
-    if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let len = Bi_vint.read_uvint ib in
-        if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+        if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
         let x0 =
           (
-            Atdgen_runtime.Ob_run.read_int
+            Atdgen_www_runtime.Ob_run.read_int
           ) ib
         in
         let x1 =
@@ -2904,12 +2904,12 @@ let get_tup_reader = (
 )
 let read_tup = (
   fun ib ->
-    if Bi_io.read_tag ib <> 20 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 20 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let len = Bi_vint.read_uvint ib in
-    if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+    if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
     let x0 =
       (
-        Atdgen_runtime.Ob_run.read_int
+        Atdgen_www_runtime.Ob_run.read_int
       ) ib
     in
     let x1 =
@@ -2934,10 +2934,10 @@ let string_of_star_rating ?(len = 1024) x =
   write_star_rating ob x;
   Bi_outbuf.contents ob
 let get_star_rating_reader = (
-  Atdgen_runtime.Ob_run.get_int_reader
+  Atdgen_www_runtime.Ob_run.get_int_reader
 )
 let read_star_rating = (
-  Atdgen_runtime.Ob_run.read_int
+  Atdgen_www_runtime.Ob_run.read_int
 )
 let star_rating_of_string ?pos s =
   read_star_rating (Bi_inbuf.from_string ?pos s)
@@ -2959,7 +2959,7 @@ let string_of__30 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__30_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_x294623 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let bits0 = ref 0 in
@@ -2969,13 +2969,13 @@ let get__30_reader = (
             | -263781502 ->
               field_x294623 := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
+        if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
         (
           {
             x294623 = !field_x294623;
@@ -2984,7 +2984,7 @@ let get__30_reader = (
 )
 let read__30 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_x294623 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let bits0 = ref 0 in
     let len = Bi_vint.read_uvint ib in
@@ -2993,13 +2993,13 @@ let read__30 = (
         | -263781502 ->
           field_x294623 := (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
+    if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
     (
       {
         x294623 = !field_x294623;
@@ -3045,7 +3045,7 @@ let string_of_some_record ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_some_record_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_some_field = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let bits0 = ref 0 in
@@ -3055,13 +3055,13 @@ let get_some_record_reader = (
             | 386772463 ->
               field_some_field := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "some_field" |];
+        if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "some_field" |];
         (
           {
             some_field = !field_some_field;
@@ -3070,7 +3070,7 @@ let get_some_record_reader = (
 )
 let read_some_record = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_some_field = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let bits0 = ref 0 in
     let len = Bi_vint.read_uvint ib in
@@ -3079,13 +3079,13 @@ let read_some_record = (
         | 386772463 ->
           field_some_field := (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "some_field" |];
+    if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "some_field" |];
     (
       {
         some_field = !field_some_field;
@@ -3120,7 +3120,7 @@ let string_of_precision ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_precision_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_sqrt2_5 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_small_2 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -3132,27 +3132,27 @@ let get_precision_reader = (
             | -856079416 ->
               field_sqrt2_5 := (
                 (
-                  Atdgen_runtime.Ob_run.read_float64
+                  Atdgen_www_runtime.Ob_run.read_float64
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | -459390086 ->
               field_small_2 := (
                 (
-                  Atdgen_runtime.Ob_run.read_float64
+                  Atdgen_www_runtime.Ob_run.read_float64
                 ) ib
               );
               bits0 := !bits0 lor 0x2;
             | 1002187630 ->
               field_large_2 := (
                 (
-                  Atdgen_runtime.Ob_run.read_float64
+                  Atdgen_www_runtime.Ob_run.read_float64
                 ) ib
               );
               bits0 := !bits0 lor 0x4;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x7 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "sqrt2_5"; "small_2"; "large_2" |];
+        if !bits0 <> 0x7 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "sqrt2_5"; "small_2"; "large_2" |];
         (
           {
             sqrt2_5 = !field_sqrt2_5;
@@ -3163,7 +3163,7 @@ let get_precision_reader = (
 )
 let read_precision = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_sqrt2_5 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_small_2 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_large_2 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -3174,27 +3174,27 @@ let read_precision = (
         | -856079416 ->
           field_sqrt2_5 := (
             (
-              Atdgen_runtime.Ob_run.read_float64
+              Atdgen_www_runtime.Ob_run.read_float64
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | -459390086 ->
           field_small_2 := (
             (
-              Atdgen_runtime.Ob_run.read_float64
+              Atdgen_www_runtime.Ob_run.read_float64
             ) ib
           );
           bits0 := !bits0 lor 0x2;
         | 1002187630 ->
           field_large_2 := (
             (
-              Atdgen_runtime.Ob_run.read_float64
+              Atdgen_www_runtime.Ob_run.read_float64
             ) ib
           );
           bits0 := !bits0 lor 0x4;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x7 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "sqrt2_5"; "small_2"; "large_2" |];
+    if !bits0 <> 0x7 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "sqrt2_5"; "small_2"; "large_2" |];
     (
       {
         sqrt2_5 = !field_sqrt2_5;
@@ -3226,7 +3226,7 @@ let p''_of_string ?pos s =
   read_p'' (Bi_inbuf.from_string ?pos s)
 let _18_tag = Bi_io.num_variant_tag
 let write_untagged__18 = (
-  Atdgen_runtime.Ob_run.write_untagged_option (
+  Atdgen_www_runtime.Ob_run.write_untagged_option (
     Bi_io.write_svint
   )
 )
@@ -3239,32 +3239,32 @@ let string_of__18 ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get__18_reader = (
   fun tag ->
-    if tag <> 22 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 22 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         match Char.code (Bi_inbuf.read_char ib) with
           | 0 -> None
           | 0x80 ->
             Some (
               (
-                Atdgen_runtime.Ob_run.read_int
+                Atdgen_www_runtime.Ob_run.read_int
               )
                 ib
             )
-          | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+          | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let read__18 = (
   fun ib ->
-    if Bi_io.read_tag ib <> 22 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 22 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     match Char.code (Bi_inbuf.read_char ib) with
       | 0 -> None
       | 0x80 ->
         Some (
           (
-            Atdgen_runtime.Ob_run.read_int
+            Atdgen_www_runtime.Ob_run.read_int
           )
             ib
         )
-      | _ -> Atdgen_runtime.Ob_run.read_error_at ib
+      | _ -> Atdgen_www_runtime.Ob_run.read_error_at ib
 )
 let _18_of_string ?pos s =
   read__18 (Bi_inbuf.from_string ?pos s)
@@ -3342,13 +3342,13 @@ let string_of__26 ?(len = 1024) x =
 let get__26_reader = (
   fun tag ib ->
     ( Test_lib.Natural.wrap ) ((
-      Atdgen_runtime.Ob_run.get_int_reader
+      Atdgen_www_runtime.Ob_run.get_int_reader
     ) tag ib)
 )
 let read__26 = (
   fun ib ->
     ( Test_lib.Natural.wrap ) ((
-      Atdgen_runtime.Ob_run.read_int
+      Atdgen_www_runtime.Ob_run.read_int
     ) ib)
 )
 let _26_of_string ?pos s =
@@ -3389,13 +3389,13 @@ let string_of__24 ?(len = 1024) x =
 let get__24_reader = (
   fun tag ib ->
     ( fun s -> `Id s ) ((
-      Atdgen_runtime.Ob_run.get_string_reader
+      Atdgen_www_runtime.Ob_run.get_string_reader
     ) tag ib)
 )
 let read__24 = (
   fun ib ->
     ( fun s -> `Id s ) ((
-      Atdgen_runtime.Ob_run.read_string
+      Atdgen_www_runtime.Ob_run.read_string
     ) ib)
 )
 let _24_of_string ?pos s =
@@ -3421,7 +3421,7 @@ let id_of_string ?pos s =
   read_id (Bi_inbuf.from_string ?pos s)
 let _25_tag = Bi_io.array_tag
 let write_untagged__25 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     Bi_io.tuple_tag
     (
       fun ob x ->
@@ -3446,12 +3446,12 @@ let string_of__25 ?(len = 1024) x =
   write__25 ob x;
   Bi_outbuf.contents ob
 let get__25_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
+  Atdgen_www_runtime.Ob_run.get_list_reader (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
               read_id
@@ -3459,7 +3459,7 @@ let get__25_reader = (
           in
           let x1 =
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           in
           for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -3467,12 +3467,12 @@ let get__25_reader = (
   )
 )
 let read__25 = (
-  Atdgen_runtime.Ob_run.read_list (
+  Atdgen_www_runtime.Ob_run.read_list (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
               read_id
@@ -3480,7 +3480,7 @@ let read__25 = (
           in
           let x1 =
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           in
           for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -3529,7 +3529,7 @@ let intopt_of_string ?pos s =
   read_intopt (Bi_inbuf.from_string ?pos s)
 let _21_tag = Bi_io.array_tag
 let write_untagged__21 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     Bi_io.tuple_tag
     (
       fun ob x ->
@@ -3554,20 +3554,20 @@ let string_of__21 ?(len = 1024) x =
   write__21 ob x;
   Bi_outbuf.contents ob
 let get__21_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
+  Atdgen_www_runtime.Ob_run.get_list_reader (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
-              Atdgen_runtime.Ob_run.read_string
+              Atdgen_www_runtime.Ob_run.read_string
             ) ib
           in
           let x1 =
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           in
           for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -3575,20 +3575,20 @@ let get__21_reader = (
   )
 )
 let read__21 = (
-  Atdgen_runtime.Ob_run.read_list (
+  Atdgen_www_runtime.Ob_run.read_list (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
-              Atdgen_runtime.Ob_run.read_string
+              Atdgen_www_runtime.Ob_run.read_string
             ) ib
           in
           let x1 =
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           in
           for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -3618,7 +3618,7 @@ let int_assoc_list_of_string ?pos s =
   read_int_assoc_list (Bi_inbuf.from_string ?pos s)
 let _22_tag = Bi_io.array_tag
 let write_untagged__22 = (
-  Atdgen_runtime.Ob_run.write_untagged_array
+  Atdgen_www_runtime.Ob_run.write_untagged_array
     Bi_io.tuple_tag
     (
       fun ob x ->
@@ -3643,20 +3643,20 @@ let string_of__22 ?(len = 1024) x =
   write__22 ob x;
   Bi_outbuf.contents ob
 let get__22_reader = (
-  Atdgen_runtime.Ob_run.get_array_reader (
+  Atdgen_www_runtime.Ob_run.get_array_reader (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
-              Atdgen_runtime.Ob_run.read_string
+              Atdgen_www_runtime.Ob_run.read_string
             ) ib
           in
           let x1 =
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           in
           for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -3664,20 +3664,20 @@ let get__22_reader = (
   )
 )
 let read__22 = (
-  Atdgen_runtime.Ob_run.read_array (
+  Atdgen_www_runtime.Ob_run.read_array (
     fun tag ->
-      if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+      if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
         fun ib ->
           let len = Bi_vint.read_uvint ib in
-          if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+          if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
           let x0 =
             (
-              Atdgen_runtime.Ob_run.read_string
+              Atdgen_www_runtime.Ob_run.read_string
             ) ib
           in
           let x1 =
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           in
           for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -3717,10 +3717,10 @@ let string_of_int8 ?(len = 1024) x =
   write_int8 ob x;
   Bi_outbuf.contents ob
 let get_int8_reader = (
-  Atdgen_runtime.Ob_run.get_int_reader
+  Atdgen_www_runtime.Ob_run.get_int_reader
 )
 let read_int8 = (
-  Atdgen_runtime.Ob_run.read_int
+  Atdgen_www_runtime.Ob_run.read_int
 )
 let int8_of_string ?pos s =
   read_int8 (Bi_inbuf.from_string ?pos s)
@@ -3736,10 +3736,10 @@ let string_of_int64 ?(len = 1024) x =
   write_int64 ob x;
   Bi_outbuf.contents ob
 let get_int64_reader = (
-  Atdgen_runtime.Ob_run.get_int64_reader
+  Atdgen_www_runtime.Ob_run.get_int64_reader
 )
 let read_int64 = (
-  Atdgen_runtime.Ob_run.read_int64
+  Atdgen_www_runtime.Ob_run.read_int64
 )
 let int64_of_string ?pos s =
   read_int64 (Bi_inbuf.from_string ?pos s)
@@ -3755,10 +3755,10 @@ let string_of_int32 ?(len = 1024) x =
   write_int32 ob x;
   Bi_outbuf.contents ob
 let get_int32_reader = (
-  Atdgen_runtime.Ob_run.get_int32_reader
+  Atdgen_www_runtime.Ob_run.get_int32_reader
 )
 let read_int32 = (
-  Atdgen_runtime.Ob_run.read_int32
+  Atdgen_www_runtime.Ob_run.read_int32
 )
 let int32_of_string ?pos s =
   read_int32 (Bi_inbuf.from_string ?pos s)
@@ -3782,31 +3782,31 @@ let string_of_hello ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_hello_reader = (
   fun tag ->
-    if tag <> 23 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 23 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         Bi_io.read_hashtag ib (fun ib h has_arg ->
           match h, has_arg with
             | 938386162, true -> (`Hello (
                 (
-                  Atdgen_runtime.Ob_run.read_string
+                  Atdgen_www_runtime.Ob_run.read_string
                 ) ib
               ))
             | -510523854, false -> `World
-            | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+            | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
         )
 )
 let read_hello = (
   fun ib ->
-    if Bi_io.read_tag ib <> 23 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 23 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     Bi_io.read_hashtag ib (fun ib h has_arg ->
       match h, has_arg with
         | 938386162, true -> (`Hello (
             (
-              Atdgen_runtime.Ob_run.read_string
+              Atdgen_www_runtime.Ob_run.read_string
             ) ib
           ))
         | -510523854, false -> `World
-        | _ -> Atdgen_runtime.Ob_run.unsupported_variant h has_arg
+        | _ -> Atdgen_www_runtime.Ob_run.unsupported_variant h has_arg
     )
 )
 let hello_of_string ?pos s =
@@ -3829,7 +3829,7 @@ let string_of_generic _a_tag write_untagged__a write__a ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_generic_reader get__a_reader read__a = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_x294623 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let bits0 = ref 0 in
@@ -3839,13 +3839,13 @@ let get_generic_reader get__a_reader read__a = (
             | -263781502 ->
               field_x294623 := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
+        if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
         (
           {
             x294623 = !field_x294623;
@@ -3854,7 +3854,7 @@ let get_generic_reader get__a_reader read__a = (
 )
 let read_generic get__a_reader read__a = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_x294623 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let bits0 = ref 0 in
     let len = Bi_vint.read_uvint ib in
@@ -3863,13 +3863,13 @@ let read_generic get__a_reader read__a = (
         | -263781502 ->
           field_x294623 := (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x1 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
+    if !bits0 <> 0x1 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "x294623" |];
     (
       {
         x294623 = !field_x294623;
@@ -3900,7 +3900,7 @@ let string_of_floats ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_floats_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_f32 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_f64 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -3911,20 +3911,20 @@ let get_floats_reader = (
             | 5083781 ->
               field_f32 := (
                 (
-                  Atdgen_runtime.Ob_run.read_float32
+                  Atdgen_www_runtime.Ob_run.read_float32
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | 5084452 ->
               field_f64 := (
                 (
-                  Atdgen_runtime.Ob_run.read_float64
+                  Atdgen_www_runtime.Ob_run.read_float64
                 ) ib
               );
               bits0 := !bits0 lor 0x2;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x3 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "f32"; "f64" |];
+        if !bits0 <> 0x3 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "f32"; "f64" |];
         (
           {
             f32 = !field_f32;
@@ -3934,7 +3934,7 @@ let get_floats_reader = (
 )
 let read_floats = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_f32 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_f64 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let bits0 = ref 0 in
@@ -3944,20 +3944,20 @@ let read_floats = (
         | 5083781 ->
           field_f32 := (
             (
-              Atdgen_runtime.Ob_run.read_float32
+              Atdgen_www_runtime.Ob_run.read_float32
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | 5084452 ->
           field_f64 := (
             (
-              Atdgen_runtime.Ob_run.read_float64
+              Atdgen_www_runtime.Ob_run.read_float64
             ) ib
           );
           bits0 := !bits0 lor 0x2;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x3 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "f32"; "f64" |];
+    if !bits0 <> 0x3 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "f32"; "f64" |];
     (
       {
         f32 = !field_f32;
@@ -3969,7 +3969,7 @@ let floats_of_string ?pos s =
   read_floats (Bi_inbuf.from_string ?pos s)
 let _17_tag = Bi_io.array_tag
 let write_untagged__17 = (
-  Atdgen_runtime.Ob_run.write_untagged_list
+  Atdgen_www_runtime.Ob_run.write_untagged_list
     Bi_io.string_tag
     (
       Bi_io.write_untagged_string
@@ -3983,13 +3983,13 @@ let string_of__17 ?(len = 1024) x =
   write__17 ob x;
   Bi_outbuf.contents ob
 let get__17_reader = (
-  Atdgen_runtime.Ob_run.get_list_reader (
-    Atdgen_runtime.Ob_run.get_string_reader
+  Atdgen_www_runtime.Ob_run.get_list_reader (
+    Atdgen_www_runtime.Ob_run.get_string_reader
   )
 )
 let read__17 = (
-  Atdgen_runtime.Ob_run.read_list (
-    Atdgen_runtime.Ob_run.get_string_reader
+  Atdgen_www_runtime.Ob_run.read_list (
+    Atdgen_www_runtime.Ob_run.get_string_reader
   )
 )
 let _17_of_string ?pos s =
@@ -4038,23 +4038,23 @@ let string_of_extended_tuple ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_extended_tuple_reader = (
   fun tag ->
-    if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let len = Bi_vint.read_uvint ib in
-        if len < 5 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 4 ];
+        if len < 5 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 4 ];
         let x0 =
           (
-            Atdgen_runtime.Ob_run.read_int
+            Atdgen_www_runtime.Ob_run.read_int
           ) ib
         in
         let x1 =
           (
-            Atdgen_runtime.Ob_run.read_float64
+            Atdgen_www_runtime.Ob_run.read_float64
           ) ib
         in
         let x2 =
           (
-            Atdgen_runtime.Ob_run.read_bool
+            Atdgen_www_runtime.Ob_run.read_bool
           ) ib
         in
         let x3 =
@@ -4064,7 +4064,7 @@ let get_extended_tuple_reader = (
         in
         let x4 =
           (
-            Atdgen_runtime.Ob_run.read_string
+            Atdgen_www_runtime.Ob_run.read_string
           ) ib
         in
         let x5 =
@@ -4079,22 +4079,22 @@ let get_extended_tuple_reader = (
 )
 let read_extended_tuple = (
   fun ib ->
-    if Bi_io.read_tag ib <> 20 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 20 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let len = Bi_vint.read_uvint ib in
-    if len < 5 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 4 ];
+    if len < 5 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1; 4 ];
     let x0 =
       (
-        Atdgen_runtime.Ob_run.read_int
+        Atdgen_www_runtime.Ob_run.read_int
       ) ib
     in
     let x1 =
       (
-        Atdgen_runtime.Ob_run.read_float64
+        Atdgen_www_runtime.Ob_run.read_float64
       ) ib
     in
     let x2 =
       (
-        Atdgen_runtime.Ob_run.read_bool
+        Atdgen_www_runtime.Ob_run.read_bool
       ) ib
     in
     let x3 =
@@ -4104,7 +4104,7 @@ let read_extended_tuple = (
     in
     let x4 =
       (
-        Atdgen_runtime.Ob_run.read_string
+        Atdgen_www_runtime.Ob_run.read_string
       ) ib
     in
     let x5 =
@@ -4166,7 +4166,7 @@ let string_of_extended ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_extended_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_b0x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_b1x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -4181,21 +4181,21 @@ let get_extended_reader = (
             | 21902 ->
               field_b0x := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | 21903 ->
               field_b1x := (
                 (
-                  Atdgen_runtime.Ob_run.read_bool
+                  Atdgen_www_runtime.Ob_run.read_bool
                 ) ib
               );
               bits0 := !bits0 lor 0x2;
             | 21904 ->
               field_b2x := (
                 (
-                  Atdgen_runtime.Ob_run.read_string
+                  Atdgen_www_runtime.Ob_run.read_string
                 ) ib
               );
               bits0 := !bits0 lor 0x4;
@@ -4203,7 +4203,7 @@ let get_extended_reader = (
               field_b3x := (
                 Some (
                   (
-                    Atdgen_runtime.Ob_run.read_string
+                    Atdgen_www_runtime.Ob_run.read_string
                   ) ib
                 )
               );
@@ -4217,12 +4217,12 @@ let get_extended_reader = (
             | 21907 ->
               field_b5x := (
                 (
-                  Atdgen_runtime.Ob_run.read_float64
+                  Atdgen_www_runtime.Ob_run.read_float64
                 ) ib
               );
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0xf then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1"; "b2"; "b4" |];
+        if !bits0 <> 0xf then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1"; "b2"; "b4" |];
         (
           {
             b0x = !field_b0x;
@@ -4236,7 +4236,7 @@ let get_extended_reader = (
 )
 let read_extended = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_b0x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_b1x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_b2x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -4250,21 +4250,21 @@ let read_extended = (
         | 21902 ->
           field_b0x := (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | 21903 ->
           field_b1x := (
             (
-              Atdgen_runtime.Ob_run.read_bool
+              Atdgen_www_runtime.Ob_run.read_bool
             ) ib
           );
           bits0 := !bits0 lor 0x2;
         | 21904 ->
           field_b2x := (
             (
-              Atdgen_runtime.Ob_run.read_string
+              Atdgen_www_runtime.Ob_run.read_string
             ) ib
           );
           bits0 := !bits0 lor 0x4;
@@ -4272,7 +4272,7 @@ let read_extended = (
           field_b3x := (
             Some (
               (
-                Atdgen_runtime.Ob_run.read_string
+                Atdgen_www_runtime.Ob_run.read_string
               ) ib
             )
           );
@@ -4286,12 +4286,12 @@ let read_extended = (
         | 21907 ->
           field_b5x := (
             (
-              Atdgen_runtime.Ob_run.read_float64
+              Atdgen_www_runtime.Ob_run.read_float64
             ) ib
           );
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0xf then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1"; "b2"; "b4" |];
+    if !bits0 <> 0xf then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1"; "b2"; "b4" |];
     (
       {
         b0x = !field_b0x;
@@ -4383,10 +4383,10 @@ let string_of_char ?(len = 1024) x =
   write_char ob x;
   Bi_outbuf.contents ob
 let get_char_reader = (
-  Atdgen_runtime.Ob_run.get_char_reader
+  Atdgen_www_runtime.Ob_run.get_char_reader
 )
 let read_char = (
-  Atdgen_runtime.Ob_run.read_char
+  Atdgen_www_runtime.Ob_run.read_char
 )
 let char_of_string ?pos s =
   read_char (Bi_inbuf.from_string ?pos s)
@@ -4414,18 +4414,18 @@ let string_of_base_tuple ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_base_tuple_reader = (
   fun tag ->
-    if tag <> 20 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 20 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let len = Bi_vint.read_uvint ib in
-        if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+        if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
         let x0 =
           (
-            Atdgen_runtime.Ob_run.read_int
+            Atdgen_www_runtime.Ob_run.read_int
           ) ib
         in
         let x1 =
           (
-            Atdgen_runtime.Ob_run.read_float64
+            Atdgen_www_runtime.Ob_run.read_float64
           ) ib
         in
         for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -4433,17 +4433,17 @@ let get_base_tuple_reader = (
 )
 let read_base_tuple = (
   fun ib ->
-    if Bi_io.read_tag ib <> 20 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 20 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let len = Bi_vint.read_uvint ib in
-    if len < 2 then Atdgen_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
+    if len < 2 then Atdgen_www_runtime.Ob_run.missing_tuple_fields len [ 0; 1 ];
     let x0 =
       (
-        Atdgen_runtime.Ob_run.read_int
+        Atdgen_www_runtime.Ob_run.read_int
       ) ib
     in
     let x1 =
       (
-        Atdgen_runtime.Ob_run.read_float64
+        Atdgen_www_runtime.Ob_run.read_float64
       ) ib
     in
     for i = 2 to len - 1 do Bi_io.skip ib done;
@@ -4473,7 +4473,7 @@ let string_of_base ?(len = 1024) x =
   Bi_outbuf.contents ob
 let get_base_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_b0 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_b1 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -4484,20 +4484,20 @@ let get_base_reader = (
             | 21902 ->
               field_b0 := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | 21903 ->
               field_b1 := (
                 (
-                  Atdgen_runtime.Ob_run.read_bool
+                  Atdgen_www_runtime.Ob_run.read_bool
                 ) ib
               );
               bits0 := !bits0 lor 0x2;
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0x3 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1" |];
+        if !bits0 <> 0x3 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1" |];
         (
           {
             b0 = !field_b0;
@@ -4507,7 +4507,7 @@ let get_base_reader = (
 )
 let read_base = (
   fun ib ->
-    if Bi_io.read_tag ib <> 21 then Atdgen_runtime.Ob_run.read_error_at ib;
+    if Bi_io.read_tag ib <> 21 then Atdgen_www_runtime.Ob_run.read_error_at ib;
     let field_b0 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let field_b1 = ref (Obj.magic (Sys.opaque_identity 0.0)) in
     let bits0 = ref 0 in
@@ -4517,20 +4517,20 @@ let read_base = (
         | 21902 ->
           field_b0 := (
             (
-              Atdgen_runtime.Ob_run.read_int
+              Atdgen_www_runtime.Ob_run.read_int
             ) ib
           );
           bits0 := !bits0 lor 0x1;
         | 21903 ->
           field_b1 := (
             (
-              Atdgen_runtime.Ob_run.read_bool
+              Atdgen_www_runtime.Ob_run.read_bool
             ) ib
           );
           bits0 := !bits0 lor 0x2;
         | _ -> Bi_io.skip ib
     done;
-    if !bits0 <> 0x3 then Atdgen_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1" |];
+    if !bits0 <> 0x3 then Atdgen_www_runtime.Ob_run.missing_fields [| !bits0 |] [| "b0"; "b1" |];
     (
       {
         b0 = !field_b0;
@@ -4542,7 +4542,7 @@ let base_of_string ?pos s =
   read_base (Bi_inbuf.from_string ?pos s)
 let _23_tag = Bi_io.array_tag
 let write_untagged__23 _a_tag write_untagged__a write__a = (
-  Atdgen_runtime.Ob_run.write_untagged_array
+  Atdgen_www_runtime.Ob_run.write_untagged_array
     _a_tag
     (
       write_untagged__a
@@ -4556,12 +4556,12 @@ let string_of__23 _a_tag write_untagged__a write__a ?(len = 1024) x =
   write__23 _a_tag write_untagged__a write__a ob x;
   Bi_outbuf.contents ob
 let get__23_reader get__a_reader read__a = (
-  Atdgen_runtime.Ob_run.get_array_reader (
+  Atdgen_www_runtime.Ob_run.get_array_reader (
     get__a_reader
   )
 )
 let read__23 get__a_reader read__a = (
-  Atdgen_runtime.Ob_run.read_array (
+  Atdgen_www_runtime.Ob_run.read_array (
     get__a_reader
   )
 )

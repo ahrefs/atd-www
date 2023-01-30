@@ -41,7 +41,7 @@ type a = Test3j_t.a = { thing: string; other_thing: bool }
 type adapted = Test3j_t.adapted
 
 let rec write__4 ob x = (
-  Atdgen_runtime.Oj_run.write_list (
+  Atdgen_www_runtime.Oj_run.write_list (
     write_rec_type
   )
 ) ob x
@@ -50,7 +50,7 @@ and string_of__4 ?(len = 1024) x =
   write__4 ob x;
   Buffer.contents ob
 and write_rec_type ob (x : rec_type) = (
-  Atdgen_runtime.Oj_run.write_with_adapter Json_adapters.Identity.restore (
+  Atdgen_www_runtime.Oj_run.write_with_adapter Json_adapters.Identity.restore (
     fun ob (x : rec_type) ->
       Buffer.add_char ob '{';
       let is_first = ref true in
@@ -71,14 +71,14 @@ and string_of_rec_type ?(len = 1024) x =
   write_rec_type ob x;
   Buffer.contents ob
 let rec read__4 p lb = (
-  Atdgen_runtime.Oj_run.read_list (
+  Atdgen_www_runtime.Oj_run.read_list (
     read_rec_type
   )
 ) p lb
 and _4_of_string s =
   read__4 (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 and read_rec_type p lb = (
-  Atdgen_runtime.Oj_run.read_with_adapter Json_adapters.Identity.normalize (
+  Atdgen_www_runtime.Oj_run.read_with_adapter Json_adapters.Identity.normalize (
     fun p lb ->
       Yojson.Safe.read_space p lb;
       Yojson.Safe.read_lcurl p lb;
@@ -99,7 +99,7 @@ and read_rec_type p lb = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
@@ -130,7 +130,7 @@ and read_rec_type p lb = (
               )
           in
           let i = Yojson.Safe.map_ident p f lb in
-          Atdgen_runtime.Oj_run.read_until_field_value p lb;
+          Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
           (
             match i with
               | 0 ->
@@ -150,7 +150,7 @@ and read_rec_type p lb = (
       with Yojson.End_of_object -> (
           (
             {
-              more = (match !field_more with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "more");
+              more = (match !field_more with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "more");
             }
            : rec_type)
         )
@@ -159,8 +159,8 @@ and read_rec_type p lb = (
 and rec_type_of_string s =
   read_rec_type (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write__1 = (
-  Atdgen_runtime.Oj_run.write_list (
-    Atdgen_runtime.Oj_run.write_float_as_int
+  Atdgen_www_runtime.Oj_run.write_list (
+    Atdgen_www_runtime.Oj_run.write_float_as_int
   )
 )
 let string_of__1 ?(len = 1024) x =
@@ -168,8 +168,8 @@ let string_of__1 ?(len = 1024) x =
   write__1 ob x;
   Buffer.contents ob
 let read__1 = (
-  Atdgen_runtime.Oj_run.read_list (
-    Atdgen_runtime.Oj_run.read_number
+  Atdgen_www_runtime.Oj_run.read_list (
+    Atdgen_www_runtime.Oj_run.read_number
   )
 )
 let _1_of_string s =
@@ -199,7 +199,7 @@ let read_json = (
 let json_of_string s =
   read_json (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write__5 = (
-  Atdgen_runtime.Oj_run.write_nullable (
+  Atdgen_www_runtime.Oj_run.write_nullable (
     write_json
   )
 )
@@ -263,25 +263,25 @@ let read_tf_variant2 = (
       | `Edgy_bracket -> (
           match Yojson.Safe.read_ident p lb with
             | "a" ->
-              Atdgen_runtime.Oj_run.read_until_field_value p lb;
+              Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_gt p lb;
               `A x
             | "b" ->
-              Atdgen_runtime.Oj_run.read_until_field_value p lb;
+              Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_gt p lb;
               `B x
             | "Unknown" ->
-              Atdgen_runtime.Oj_run.read_until_field_value p lb;
+              Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
               let x = (
                   fun p lb ->
                     Yojson.Safe.read_space p lb;
@@ -292,7 +292,7 @@ let read_tf_variant2 = (
                       let x0 =
                         let x =
                           (
-                            Atdgen_runtime.Oj_run.read_string
+                            Atdgen_www_runtime.Oj_run.read_string
                           ) p lb
                         in
                         incr len;
@@ -324,28 +324,28 @@ let read_tf_variant2 = (
                       );
                       (x0, x1)
                     with Yojson.End_of_tuple ->
-                      Atdgen_runtime.Oj_run.missing_tuple_fields p !len [ 0; 1 ]);
+                      Atdgen_www_runtime.Oj_run.missing_tuple_fields p !len [ 0; 1 ]);
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_gt p lb;
               `Unknown x
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
       | `Double_quote -> (
           match Yojson.Safe.finish_string p lb with
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
       | `Square_bracket -> (
-          match Atdgen_runtime.Oj_run.read_string p lb with
+          match Atdgen_www_runtime.Oj_run.read_string p lb with
             | "a" ->
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_comma p lb;
               Yojson.Safe.read_space p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
@@ -356,7 +356,7 @@ let read_tf_variant2 = (
               Yojson.Safe.read_comma p lb;
               Yojson.Safe.read_space p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
@@ -376,7 +376,7 @@ let read_tf_variant2 = (
                       let x0 =
                         let x =
                           (
-                            Atdgen_runtime.Oj_run.read_string
+                            Atdgen_www_runtime.Oj_run.read_string
                           ) p lb
                         in
                         incr len;
@@ -408,14 +408,14 @@ let read_tf_variant2 = (
                       );
                       (x0, x1)
                     with Yojson.End_of_tuple ->
-                      Atdgen_runtime.Oj_run.missing_tuple_fields p !len [ 0; 1 ]);
+                      Atdgen_www_runtime.Oj_run.missing_tuple_fields p !len [ 0; 1 ]);
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_rbr p lb;
               `Unknown x
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
 )
 let tf_variant2_of_string s =
@@ -447,39 +447,39 @@ let read_tf_variant = (
       | `Edgy_bracket -> (
           match Yojson.Safe.read_ident p lb with
             | "a" ->
-              Atdgen_runtime.Oj_run.read_until_field_value p lb;
+              Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_gt p lb;
               `A x
             | "b" ->
-              Atdgen_runtime.Oj_run.read_until_field_value p lb;
+              Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_gt p lb;
               `B x
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
       | `Double_quote -> (
           match Yojson.Safe.finish_string p lb with
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
       | `Square_bracket -> (
-          match Atdgen_runtime.Oj_run.read_string p lb with
+          match Atdgen_www_runtime.Oj_run.read_string p lb with
             | "a" ->
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_comma p lb;
               Yojson.Safe.read_space p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
@@ -490,20 +490,20 @@ let read_tf_variant = (
               Yojson.Safe.read_comma p lb;
               Yojson.Safe.read_space p lb;
               let x = (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               in
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_rbr p lb;
               `B x
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
 )
 let tf_variant_of_string s =
   read_tf_variant (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write_tf_record2 : _ -> tf_record2 -> _ = (
-  Atdgen_runtime.Oj_run.write_with_adapter Test_lib.Tag_field_with_catchall.restore (
+  Atdgen_www_runtime.Oj_run.write_with_adapter Test_lib.Tag_field_with_catchall.restore (
     fun ob (x : tf_record2) ->
       Buffer.add_char ob '{';
       let is_first = ref true in
@@ -533,7 +533,7 @@ let string_of_tf_record2 ?(len = 1024) x =
   write_tf_record2 ob x;
   Buffer.contents ob
 let read_tf_record2 = (
-  Atdgen_runtime.Oj_run.read_with_adapter Test_lib.Tag_field_with_catchall.normalize (
+  Atdgen_www_runtime.Oj_run.read_with_adapter Test_lib.Tag_field_with_catchall.normalize (
     fun p lb ->
       Yojson.Safe.read_space p lb;
       Yojson.Safe.read_lcurl p lb;
@@ -569,7 +569,7 @@ let read_tf_record2 = (
                 )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
@@ -584,7 +584,7 @@ let read_tf_record2 = (
               field_etc2 := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_string
+                    Atdgen_www_runtime.Oj_run.read_string
                   ) p lb
                 )
               );
@@ -622,7 +622,7 @@ let read_tf_record2 = (
                   )
           in
           let i = Yojson.Safe.map_ident p f lb in
-          Atdgen_runtime.Oj_run.read_until_field_value p lb;
+          Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
           (
             match i with
               | 0 ->
@@ -637,7 +637,7 @@ let read_tf_record2 = (
                 field_etc2 := (
                   Some (
                     (
-                      Atdgen_runtime.Oj_run.read_string
+                      Atdgen_www_runtime.Oj_run.read_string
                     ) p lb
                   )
                 );
@@ -650,8 +650,8 @@ let read_tf_record2 = (
       with Yojson.End_of_object -> (
           (
             {
-              the_value2 = (match !field_the_value2 with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "the_value2");
-              etc2 = (match !field_etc2 with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "etc2");
+              the_value2 = (match !field_the_value2 with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "the_value2");
+              etc2 = (match !field_etc2 with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "etc2");
             }
            : tf_record2)
         )
@@ -660,7 +660,7 @@ let read_tf_record2 = (
 let tf_record2_of_string s =
   read_tf_record2 (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write_tf_record : _ -> tf_record -> _ = (
-  Atdgen_runtime.Oj_run.write_with_adapter Test_lib.Tag_field_example.restore (
+  Atdgen_www_runtime.Oj_run.write_with_adapter Test_lib.Tag_field_example.restore (
     fun ob (x : tf_record) ->
       Buffer.add_char ob '{';
       let is_first = ref true in
@@ -690,7 +690,7 @@ let string_of_tf_record ?(len = 1024) x =
   write_tf_record ob x;
   Buffer.contents ob
 let read_tf_record = (
-  Atdgen_runtime.Oj_run.read_with_adapter Test_lib.Tag_field_example.normalize (
+  Atdgen_www_runtime.Oj_run.read_with_adapter Test_lib.Tag_field_example.normalize (
     fun p lb ->
       Yojson.Safe.read_space p lb;
       Yojson.Safe.read_lcurl p lb;
@@ -726,7 +726,7 @@ let read_tf_record = (
                 )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
@@ -741,7 +741,7 @@ let read_tf_record = (
               field_etc := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_string
+                    Atdgen_www_runtime.Oj_run.read_string
                   ) p lb
                 )
               );
@@ -779,7 +779,7 @@ let read_tf_record = (
                   )
           in
           let i = Yojson.Safe.map_ident p f lb in
-          Atdgen_runtime.Oj_run.read_until_field_value p lb;
+          Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
           (
             match i with
               | 0 ->
@@ -794,7 +794,7 @@ let read_tf_record = (
                 field_etc := (
                   Some (
                     (
-                      Atdgen_runtime.Oj_run.read_string
+                      Atdgen_www_runtime.Oj_run.read_string
                     ) p lb
                   )
                 );
@@ -807,8 +807,8 @@ let read_tf_record = (
       with Yojson.End_of_object -> (
           (
             {
-              the_value = (match !field_the_value with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "the_value");
-              etc = (match !field_etc with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "etc");
+              the_value = (match !field_the_value with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "the_value");
+              etc = (match !field_etc with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "etc");
             }
            : tf_record)
         )
@@ -916,14 +916,14 @@ let read_t = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_foo := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               )
             );
@@ -991,14 +991,14 @@ let read_t = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_foo := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_int
+                    Atdgen_www_runtime.Oj_run.read_int
                   ) p lb
                 )
               );
@@ -1027,9 +1027,9 @@ let read_t = (
     with Yojson.End_of_object -> (
         (
           {
-            foo = (match !field_foo with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "foo");
-            bar = (match !field_bar with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "bar");
-            baz = (match !field_baz with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "baz");
+            foo = (match !field_foo with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "foo");
+            bar = (match !field_bar with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "bar");
+            baz = (match !field_baz with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "baz");
           }
          : t)
       )
@@ -1037,7 +1037,7 @@ let read_t = (
 let t_of_string s =
   read_t (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write_sf_adapted = (
-  Atdgen_runtime.Oj_run.write_with_adapter Atdgen_runtime.Json_adapter.One_field.restore (
+  Atdgen_www_runtime.Oj_run.write_with_adapter Atdgen_www_runtime.Json_adapter.One_field.restore (
     fun ob x ->
       match x with
         | `A x ->
@@ -1059,46 +1059,46 @@ let string_of_sf_adapted ?(len = 1024) x =
   write_sf_adapted ob x;
   Buffer.contents ob
 let read_sf_adapted = (
-  Atdgen_runtime.Oj_run.read_with_adapter Atdgen_runtime.Json_adapter.One_field.normalize (
+  Atdgen_www_runtime.Oj_run.read_with_adapter Atdgen_www_runtime.Json_adapter.One_field.normalize (
     fun p lb ->
       Yojson.Safe.read_space p lb;
       match Yojson.Safe.start_any_variant p lb with
         | `Edgy_bracket -> (
             match Yojson.Safe.read_ident p lb with
               | "a" ->
-                Atdgen_runtime.Oj_run.read_until_field_value p lb;
+                Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
                 let x = (
-                    Atdgen_runtime.Oj_run.read_bool
+                    Atdgen_www_runtime.Oj_run.read_bool
                   ) p lb
                 in
                 Yojson.Safe.read_space p lb;
                 Yojson.Safe.read_gt p lb;
                 `A x
               | "b" ->
-                Atdgen_runtime.Oj_run.read_until_field_value p lb;
+                Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
                 let x = (
-                    Atdgen_runtime.Oj_run.read_int
+                    Atdgen_www_runtime.Oj_run.read_int
                   ) p lb
                 in
                 Yojson.Safe.read_space p lb;
                 Yojson.Safe.read_gt p lb;
                 `B x
               | x ->
-                Atdgen_runtime.Oj_run.invalid_variant_tag p x
+                Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
           )
         | `Double_quote -> (
             match Yojson.Safe.finish_string p lb with
               | x ->
-                Atdgen_runtime.Oj_run.invalid_variant_tag p x
+                Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
           )
         | `Square_bracket -> (
-            match Atdgen_runtime.Oj_run.read_string p lb with
+            match Atdgen_www_runtime.Oj_run.read_string p lb with
               | "a" ->
                 Yojson.Safe.read_space p lb;
                 Yojson.Safe.read_comma p lb;
                 Yojson.Safe.read_space p lb;
                 let x = (
-                    Atdgen_runtime.Oj_run.read_bool
+                    Atdgen_www_runtime.Oj_run.read_bool
                   ) p lb
                 in
                 Yojson.Safe.read_space p lb;
@@ -1109,14 +1109,14 @@ let read_sf_adapted = (
                 Yojson.Safe.read_comma p lb;
                 Yojson.Safe.read_space p lb;
                 let x = (
-                    Atdgen_runtime.Oj_run.read_int
+                    Atdgen_www_runtime.Oj_run.read_int
                   ) p lb
                 in
                 Yojson.Safe.read_space p lb;
                 Yojson.Safe.read_rbr p lb;
                 `B x
               | x ->
-                Atdgen_runtime.Oj_run.invalid_variant_tag p x
+                Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
           )
   )
 )
@@ -1162,15 +1162,15 @@ let read_sample_open_enum = (
               `Other x
         )
       | `Square_bracket -> (
-          match Atdgen_runtime.Oj_run.read_string p lb with
+          match Atdgen_www_runtime.Oj_run.read_string p lb with
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
 )
 let sample_open_enum_of_string s =
   read_sample_open_enum (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write__6 = (
-  Atdgen_runtime.Oj_run.write_list (
+  Atdgen_www_runtime.Oj_run.write_list (
     write_sample_open_enum
   )
 )
@@ -1179,7 +1179,7 @@ let string_of__6 ?(len = 1024) x =
   write__6 ob x;
   Buffer.contents ob
 let read__6 = (
-  Atdgen_runtime.Oj_run.read_list (
+  Atdgen_www_runtime.Oj_run.read_list (
     read_sample_open_enum
   )
 )
@@ -1198,7 +1198,7 @@ let read_sample_open_enums = (
 let sample_open_enums_of_string s =
   read_sample_open_enums (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write__2 = (
-  Atdgen_runtime.Oj_run.write_nullable (
+  Atdgen_www_runtime.Oj_run.write_nullable (
     Yojson.Safe.write_int
   )
 )
@@ -1211,13 +1211,13 @@ let read__2 = (
     Yojson.Safe.read_space p lb;
     (if Yojson.Safe.read_null_if_possible p lb then None
     else Some ((
-      Atdgen_runtime.Oj_run.read_int
+      Atdgen_www_runtime.Oj_run.read_int
     ) p lb) : _ option)
 )
 let _2_of_string s =
   read__2 (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write__3 = (
-  Atdgen_runtime.Oj_run.write_std_option (
+  Atdgen_www_runtime.Oj_run.write_std_option (
     write__2
   )
 )
@@ -1236,7 +1236,7 @@ let read__3 = (
               Yojson.Safe.read_gt p lb;
               (None : _ option)
             | "Some" ->
-              Atdgen_runtime.Oj_run.read_until_field_value p lb;
+              Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
               let x = (
                   read__2
                 ) p lb
@@ -1245,17 +1245,17 @@ let read__3 = (
               Yojson.Safe.read_gt p lb;
               (Some x : _ option)
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
       | `Double_quote -> (
           match Yojson.Safe.finish_string p lb with
             | "None" ->
               (None : _ option)
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
       | `Square_bracket -> (
-          match Atdgen_runtime.Oj_run.read_string p lb with
+          match Atdgen_www_runtime.Oj_run.read_string p lb with
             | "Some" ->
               Yojson.Safe.read_space p lb;
               Yojson.Safe.read_comma p lb;
@@ -1268,7 +1268,7 @@ let read__3 = (
               Yojson.Safe.read_rbr p lb;
               (Some x : _ option)
             | x ->
-              Atdgen_runtime.Oj_run.invalid_variant_tag p x
+              Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
         )
 )
 let _3_of_string s =
@@ -1351,7 +1351,7 @@ let read_patch = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
@@ -1410,7 +1410,7 @@ let read_patch = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
@@ -1495,14 +1495,14 @@ let read_b = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_thing := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               )
             );
@@ -1526,14 +1526,14 @@ let read_b = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_thing := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_int
+                    Atdgen_www_runtime.Oj_run.read_int
                   ) p lb
                 )
               );
@@ -1546,7 +1546,7 @@ let read_b = (
     with Yojson.End_of_object -> (
         (
           {
-            thing = (match !field_thing with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "thing");
+            thing = (match !field_thing with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "thing");
           }
          : b)
       )
@@ -1617,14 +1617,14 @@ let read_a = (
               )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_thing := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_string
+                  Atdgen_www_runtime.Oj_run.read_string
                 ) p lb
               )
             );
@@ -1632,7 +1632,7 @@ let read_a = (
             field_other_thing := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_bool
+                  Atdgen_www_runtime.Oj_run.read_bool
                 ) p lb
               )
             );
@@ -1670,14 +1670,14 @@ let read_a = (
                 )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_thing := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_string
+                    Atdgen_www_runtime.Oj_run.read_string
                   ) p lb
                 )
               );
@@ -1685,7 +1685,7 @@ let read_a = (
               field_other_thing := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_bool
+                    Atdgen_www_runtime.Oj_run.read_bool
                   ) p lb
                 )
               );
@@ -1698,8 +1698,8 @@ let read_a = (
     with Yojson.End_of_object -> (
         (
           {
-            thing = (match !field_thing with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "thing");
-            other_thing = (match !field_other_thing with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "other_thing");
+            thing = (match !field_thing with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "thing");
+            other_thing = (match !field_other_thing with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "other_thing");
           }
          : a)
       )
@@ -1707,7 +1707,7 @@ let read_a = (
 let a_of_string s =
   read_a (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write_adapted = (
-  Atdgen_runtime.Oj_run.write_with_adapter Atdgen_runtime.Json_adapter.Type_field.restore (
+  Atdgen_www_runtime.Oj_run.write_with_adapter Atdgen_www_runtime.Json_adapter.Type_field.restore (
     fun ob x ->
       match x with
         | `A x ->
@@ -1729,14 +1729,14 @@ let string_of_adapted ?(len = 1024) x =
   write_adapted ob x;
   Buffer.contents ob
 let read_adapted = (
-  Atdgen_runtime.Oj_run.read_with_adapter Atdgen_runtime.Json_adapter.Type_field.normalize (
+  Atdgen_www_runtime.Oj_run.read_with_adapter Atdgen_www_runtime.Json_adapter.Type_field.normalize (
     fun p lb ->
       Yojson.Safe.read_space p lb;
       match Yojson.Safe.start_any_variant p lb with
         | `Edgy_bracket -> (
             match Yojson.Safe.read_ident p lb with
               | "a" ->
-                Atdgen_runtime.Oj_run.read_until_field_value p lb;
+                Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
                 let x = (
                     read_a
                   ) p lb
@@ -1745,7 +1745,7 @@ let read_adapted = (
                 Yojson.Safe.read_gt p lb;
                 `A x
               | "b" ->
-                Atdgen_runtime.Oj_run.read_until_field_value p lb;
+                Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
                 let x = (
                     read_b
                   ) p lb
@@ -1754,15 +1754,15 @@ let read_adapted = (
                 Yojson.Safe.read_gt p lb;
                 `B x
               | x ->
-                Atdgen_runtime.Oj_run.invalid_variant_tag p x
+                Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
           )
         | `Double_quote -> (
             match Yojson.Safe.finish_string p lb with
               | x ->
-                Atdgen_runtime.Oj_run.invalid_variant_tag p x
+                Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
           )
         | `Square_bracket -> (
-            match Atdgen_runtime.Oj_run.read_string p lb with
+            match Atdgen_www_runtime.Oj_run.read_string p lb with
               | "a" ->
                 Yojson.Safe.read_space p lb;
                 Yojson.Safe.read_comma p lb;
@@ -1786,7 +1786,7 @@ let read_adapted = (
                 Yojson.Safe.read_rbr p lb;
                 `B x
               | x ->
-                Atdgen_runtime.Oj_run.invalid_variant_tag p x
+                Atdgen_www_runtime.Oj_run.invalid_variant_tag p x
           )
   )
 )

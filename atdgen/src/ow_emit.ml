@@ -10,7 +10,7 @@ open Mapping
 
 let target : Ocaml.target = WWW
 
-let runtime_module = "Atdgen_runtime.Ow_run"
+let runtime_module = "Atdgen_www_runtime.Ow_run"
 
 let runtime fmt = Printf.ksprintf (fun x -> sprintf "%s.%s" runtime_module x) fmt
 

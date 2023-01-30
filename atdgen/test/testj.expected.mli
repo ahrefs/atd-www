@@ -33,11 +33,11 @@ type mixed_record = Test.mixed_record = {
   field1: float option;
   field2: string option;
   field3: Int64.t;
-  field4: float Atdgen_runtime.Util.ocaml_array;
+  field4: float Atdgen_www_runtime.Util.ocaml_array;
   field5: bool option;
   field6: string option;
   field7: test_variant;
-  field8: string Atdgen_runtime.Util.ocaml_array;
+  field8: string Atdgen_www_runtime.Util.ocaml_array;
   field9: (int * int * Char.t * int * Int32.t * Int64.t);
   field10: bool;
   field11: bool;
@@ -444,11 +444,11 @@ val create_mixed_record :
   ?field1: float ->
   field2: string option ->
   field3: Int64.t ->
-  field4: float Atdgen_runtime.Util.ocaml_array ->
+  field4: float Atdgen_www_runtime.Util.ocaml_array ->
   ?field5: bool ->
   ?field6: string ->
   field7: test_variant ->
-  field8: string Atdgen_runtime.Util.ocaml_array ->
+  field8: string Atdgen_www_runtime.Util.ocaml_array ->
   field9: (int * int * Char.t * int * Int32.t * Int64.t) ->
   field10: bool ->
   ?field11: bool ->

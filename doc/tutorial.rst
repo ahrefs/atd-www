@@ -250,7 +250,7 @@ This is our OCaml program (file ``tree.ml``):
   let () =
     (* write sample value to file *)
     let fname = "tree.dat" in
-    Atdgen_runtime.Util.Biniou.to_file Tree_b.write_tree fname tree;
+    Atdgen_www_runtime.Util.Biniou.to_file Tree_b.write_tree fname tree;
 
     (* write sample value to string *)
     let s = Tree_b.string_of_tree tree in
@@ -823,7 +823,7 @@ files. The example below is self-explanatory.
   }
 
   let () =
-    Atdgen_runtime.Util.Json.to_channel Part3_j.write_t3 stdout v;
+    Atdgen_www_runtime.Util.Json.to_channel Part3_j.write_t3 stdout v;
     print_newline ()
 
 Output:
@@ -1022,7 +1022,7 @@ program called `config`:
     let x =
       try
         (* Read config data structure from JSON file *)
-        let x = Atdgen_runtime.Util.Json.from_file Config_j.read_config fname in
+        let x = Atdgen_www_runtime.Util.Json.from_file Config_j.read_config fname in
         (* Call the validators specified by <ocaml valid=...> *)
         if not (Config_v.validate_config x) then
           failwith "Some fields are invalid"
@@ -1344,7 +1344,7 @@ Test the example with your favorite OCaml toplevel (``ocaml`` or ``utop``):
   # #use "topfind";;
   # #require "atdgen";;
   # #load "untypable.cma";;
-  # Atdgen_runtime.Util.Json.from_channel Untypable_j.read_obj_list stdin;;
+  # Atdgen_www_runtime.Util.Json.from_channel Untypable_j.read_obj_list stdin;;
   [
     {
       "label": "flower",

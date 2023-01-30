@@ -123,7 +123,7 @@ let ocaml_list_of_string s : atd_ocaml_list option =
 let string_of_ocaml_list (x : atd_ocaml_list) =
   match x with
       List -> "list"
-    | Array -> "Atdgen_runtime.Util.ocaml_array"
+    | Array -> "Atdgen_www_runtime.Util.ocaml_array"
 
 let path_of_target (target : target) =
   match target with
