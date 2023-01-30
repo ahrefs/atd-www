@@ -34,8 +34,8 @@ let expect_error f x =
     eprintf "Did not get expected error\n%!";
     fail ()
   with
-    Atdgen_runtime.Ob_run.Error _
-  | Atdgen_runtime.Oj_run.Error _ -> ()
+    Atdgen_www_runtime.Ob_run.Error _
+  | Atdgen_www_runtime.Oj_run.Error _ -> ()
 
 let test_missing_record = {
   Test.b0 = 123;
@@ -77,7 +77,7 @@ type extended = {
 
 let get_extended_reader = (
   fun tag ->
-    if tag <> 21 then Atdgen_runtime.Ob_run.read_error () else
+    if tag <> 21 then Atdgen_www_runtime.Ob_run.read_error () else
       fun ib ->
         let field_b0x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
         let field_b1x = ref (Obj.magic (Sys.opaque_identity 0.0)) in
@@ -92,14 +92,14 @@ let get_extended_reader = (
             | 21902 ->
               field_b0x := (
                 (
-                  Atdgen_runtime.Ob_run.read_int
+                  Atdgen_www_runtime.Ob_run.read_int
                 ) ib
               );
               bits0 := !bits0 lor 0x1;
             | 21903 ->
               field_b1x := (
                 (
-                  Atdgen_runtime.Ob_run.read_bool
+                  Atdgen_www_runtime.Ob_run.read_bool
                 ) ib
               );
               bits0 := !bits0 lor 0x2;
@@ -107,12 +107,12 @@ let get_extended_reader = (
             | 21907 ->
               field_b5x := (
                 (
-                  Atdgen_runtime.Ob_run.read_float64
+                  Atdgen_www_runtime.Ob_run.read_float64
                 ) ib
               );
             | _ -> Bi_io.skip ib
         done;
-        if !bits0 <> 0xf then Atdgen_runtime.Ob_run.missing_fields
+        if !bits0 <> 0xf then Atdgen_www_runtime.Ob_run.missing_fields
           [| !bits0 |] [| "b0"; "b1"; "b2"; "b4" |];
         (
           {
@@ -453,22 +453,22 @@ let test_validators4 () =
 let test_json_files () =
   section "json files";
   let x = Some 123 in
-  let s = Atdgen_runtime.Util.Json.to_string Testj.write_intopt x in
-  let x' = Atdgen_runtime.Util.Json.from_string Testj.read_intopt s in
+  let s = Atdgen_www_runtime.Util.Json.to_string Testj.write_intopt x in
+  let x' = Atdgen_www_runtime.Util.Json.from_string Testj.read_intopt s in
   check (x = x');
-  Atdgen_runtime.Util.Json.to_file Testj.write_intopt "test-json-files.json" x;
-  let x'' = Atdgen_runtime.Util.Json.from_file Testj.read_intopt "test-json-files.json" in
+  Atdgen_www_runtime.Util.Json.to_file Testj.write_intopt "test-json-files.json" x;
+  let x'' = Atdgen_www_runtime.Util.Json.from_file Testj.read_intopt "test-json-files.json" in
   check (x = x'')
 
 let test_json_streams () =
   section "json streams";
   let l = [ Some 1; None; Some 2; Some 3 ] in
-  let s = Atdgen_runtime.Util.Json.list_to_string Testj.write_intopt l in
-  let l' = Atdgen_runtime.Util.Json.list_from_string Testj.read_intopt s in
+  let s = Atdgen_www_runtime.Util.Json.list_to_string Testj.write_intopt l in
+  let l' = Atdgen_www_runtime.Util.Json.list_from_string Testj.read_intopt s in
   check (l = l');
-  Atdgen_runtime.Util.Json.list_to_file Testj.write_intopt "test-json-streams.json" l;
+  Atdgen_www_runtime.Util.Json.list_to_file Testj.write_intopt "test-json-streams.json" l;
   let l'' =
-    Atdgen_runtime.Util.Json.list_from_file Testj.read_intopt "test-json-streams.json"
+    Atdgen_www_runtime.Util.Json.list_from_file Testj.read_intopt "test-json-streams.json"
   in
   check (l = l'')
 

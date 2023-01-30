@@ -383,7 +383,7 @@ showing how the user-specified validators are used:
     }
 
     val validate_gender :
-      Atdgen_runtime.Util.Validation.path -> gender -> Atdgen_runtime.Util.Validation.error option
+      Atdgen_www_runtime.Util.Validation.path -> gender -> Atdgen_www_runtime.Util.Validation.error option
       (** Validate a value of type {!gender}. *)
 
     val create_date :
@@ -394,7 +394,7 @@ showing how the user-specified validators are used:
       (** Create a record of type {!date}. *)
 
     val validate_date :
-      Atdgen_runtime.Util.Validation.path -> date -> Atdgen_runtime.Util.Validation.error option
+      Atdgen_www_runtime.Util.Validation.path -> date -> Atdgen_www_runtime.Util.Validation.error option
       (** Validate a value of type {!date}. *)
 
     val create_profile :
@@ -410,7 +410,7 @@ showing how the user-specified validators are used:
       (** Create a record of type {!profile}. *)
 
     val validate_profile :
-      Atdgen_runtime.Util.Validation.path -> profile -> Atdgen_runtime.Util.Validation.error option
+      Atdgen_www_runtime.Util.Validation.path -> profile -> Atdgen_www_runtime.Util.Validation.error option
       (** Validate a value of type {!profile}. *)
 
 Default type mapping
@@ -740,7 +740,7 @@ as to make them compatible with ATD. The programmer must provide an
 OCaml module that provides converters between the original json
 representation and the ATD-compatible representation. The signature of
 the user-provided module must be equal to
-``Atdgen_runtime.Json_adapter.S``, which is:
+``Atdgen_www_runtime.Json_adapter.S``, which is:
 
 .. code:: ocaml
 
@@ -758,7 +758,7 @@ the yojson library.
 Position: on a variant type or on a record type.
 
 Value: an OCaml module identifier. Note that
-``Atdgen_runtime.Json_adapter`` provides a few modules and functors that
+``Atdgen_www_runtime.Json_adapter`` provides a few modules and functors that
 are ready to use. Users are however encouraged to write their own to
 suit their needs.
 
@@ -769,7 +769,7 @@ Sample ATD definitions:
     type document = [
       | Image of image
       | Text of text
-    ] <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+    ] <json adapter.ocaml="Atdgen_www_runtime.Json_adapter.Type_field">
 
     type image = {
       url: string;
@@ -1359,7 +1359,7 @@ Semantics: ``atdgen -v`` produces for each type named *t* a function
 
 .. code:: ocaml
 
-    val validate_t : Atdgen_runtime.Util.Validation.path -> t -> Atdgen_runtime.Util.Validation.error option
+    val validate_t : Atdgen_www_runtime.Util.Validation.path -> t -> Atdgen_www_runtime.Util.Validation.error option
 
 Such a function returns ``None`` if and only if the value and all of its
 subnodes pass all the validators specified by annotations of the form
@@ -1390,7 +1390,7 @@ containing object first (``Point.validate``) and continues on its fields
     | None -> ()
     | Some e ->
         Printf.eprintf "Error: %s\n%!"
-          (Atdgen_runtime.Util.Validation.string_of_error e)
+          (Atdgen_www_runtime.Util.Validation.string_of_error e)
 
 The above code prints the following error message:
 
@@ -1417,7 +1417,7 @@ Semantics: ``atdgen -v`` produces for each type named *t* a function
 
 .. code:: ocaml
 
-    val validate_t : Atdgen_runtime.Util.Validation.path -> t -> Atdgen_runtime.Util.Validation.error option
+    val validate_t : Atdgen_www_runtime.Util.Validation.path -> t -> Atdgen_www_runtime.Util.Validation.error option
 
 Such a function returns ``None`` if and only if the value and all of its
 subnodes pass all the validators specified by annotations of the form
@@ -1433,7 +1433,7 @@ Example:
         if x > 0 then None
         else
           Some (
-            Atdgen_runtime.Util.Validation.error
+            Atdgen_www_runtime.Util.Validation.error
               ~msg: (\"Not a positive integer: \" ^ string_of_int x)
               path
           )
@@ -1455,7 +1455,7 @@ The following user code
     | None -> ()
     | Some e ->
         Printf.eprintf "Error: %s\n%!"
-          (Atdgen_runtime.Util.Validation.string_of_error e)
+          (Atdgen_www_runtime.Util.Validation.string_of_error e)
 
 results in printing:
 

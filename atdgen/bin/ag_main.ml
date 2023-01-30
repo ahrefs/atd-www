@@ -199,10 +199,10 @@ let main () =
     Arg.Unit (
       fun () ->
         set_once "unknown field handler" unknown_field_handler
-          "!Atdgen_runtime.Util.Json.unknown_field_handler"
+          "!Atdgen_www_runtime.Util.Json.unknown_field_handler"
     ),
     "
-          Call !Atdgen_runtime.Util.Json.unknown_field_handler for every unknown JSON field
+          Call !Atdgen_www_runtime.Util.Json.unknown_field_handler for every unknown JSON field
           found in the input instead of simply skipping them.
           The initial behavior is to raise an exception.";
 

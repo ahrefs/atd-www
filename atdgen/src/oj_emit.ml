@@ -128,10 +128,10 @@ let rec get_writer_name
   | Int (_, Int o, Int) ->
       (match o with
          Int -> "Yojson.Safe.write_int"
-       | Char ->  "Atdgen_runtime.Oj_run.write_int8"
-       | Int32 -> "Atdgen_runtime.Oj_run.write_int32"
-       | Int64 -> "Atdgen_runtime.Oj_run.write_int64"
-       | Float -> "Atdgen_runtime.Oj_run.write_float_as_int"
+       | Char ->  "Atdgen_www_runtime.Oj_run.write_int8"
+       | Int32 -> "Atdgen_www_runtime.Oj_run.write_int32"
+       | Int64 -> "Atdgen_www_runtime.Oj_run.write_int64"
+       | Float -> "Atdgen_www_runtime.Oj_run.write_float_as_int"
       )
 
   | Float (_, Float, Float j) ->
@@ -145,7 +145,7 @@ let rec get_writer_name
            else
              sprintf "Yojson.Safe.write_float_prec %i" precision
        | Int ->
-           "Atdgen_runtime.Oj_run.write_float_as_int"
+           "Atdgen_www_runtime.Oj_run.write_float_as_int"
       )
 
   | String (_, String, String) ->
@@ -187,20 +187,20 @@ let rec get_reader_name
     p (x : Oj_mapping.t) : string =
 
   match x with
-    Unit (_, Unit, Unit) -> "Atdgen_runtime.Oj_run.read_null"
-  | Bool (_, Bool, Bool) -> "Atdgen_runtime.Oj_run.read_bool"
+    Unit (_, Unit, Unit) -> "Atdgen_www_runtime.Oj_run.read_null"
+  | Bool (_, Bool, Bool) -> "Atdgen_www_runtime.Oj_run.read_bool"
   | Int (_, Int o, Int) ->
       (match o with
-         Int -> "Atdgen_runtime.Oj_run.read_int"
-       | Char -> "Atdgen_runtime.Oj_run.read_int8"
-       | Int32 -> "Atdgen_runtime.Oj_run.read_int32"
-       | Int64 -> "Atdgen_runtime.Oj_run.read_int64"
-       | Float -> "Atdgen_runtime.Oj_run.read_number"
+         Int -> "Atdgen_www_runtime.Oj_run.read_int"
+       | Char -> "Atdgen_www_runtime.Oj_run.read_int8"
+       | Int32 -> "Atdgen_www_runtime.Oj_run.read_int32"
+       | Int64 -> "Atdgen_www_runtime.Oj_run.read_int64"
+       | Float -> "Atdgen_www_runtime.Oj_run.read_number"
       )
 
-  | Float (_, Float, Float _) -> "Atdgen_runtime.Oj_run.read_number"
+  | Float (_, Float, Float _) -> "Atdgen_www_runtime.Oj_run.read_number"
 
-  | String (_, String, String) -> "Atdgen_runtime.Oj_run.read_string"
+  | String (_, String, String) -> "Atdgen_www_runtime.Oj_run.read_string"
 
   | Tvar (_, s) -> "read_" ^ Ox_emit.name_of_var s
 
@@ -239,7 +239,7 @@ let write_with_adapter adapter writer =
         Oj_mapping.json_restorer_of_adapter_path adapter_path in
       [
         Line (
-          sprintf "Atdgen_runtime.Oj_run.write_with_adapter %s (" restore
+          sprintf "Atdgen_www_runtime.Oj_run.write_with_adapter %s (" restore
         );
         Block writer;
         Line ")";
@@ -332,8 +332,8 @@ let rec make_writer ?type_constraint p (x : Oj_mapping.t) : Indent.t list =
          Array ->
            let write =
              match o with
-               List -> "Atdgen_runtime.Oj_run.write_list ("
-             | Array -> "Atdgen_runtime.Oj_run.write_array ("
+               List -> "Atdgen_www_runtime.Oj_run.write_list ("
+             | Array -> "Atdgen_www_runtime.Oj_run.write_array ("
            in
            [
              Line write;
@@ -345,8 +345,8 @@ let rec make_writer ?type_constraint p (x : Oj_mapping.t) : Indent.t list =
            let k, v = Ox_emit.get_assoc_type p.deref loc x in
            let write =
              match o with
-               List -> "Atdgen_runtime.Oj_run.write_assoc_list ("
-             | Array -> "Atdgen_runtime.Oj_run.write_assoc_array ("
+               List -> "Atdgen_www_runtime.Oj_run.write_assoc_list ("
+             | Array -> "Atdgen_www_runtime.Oj_run.write_assoc_array ("
            in
            [
              Line write;
@@ -359,7 +359,7 @@ let rec make_writer ?type_constraint p (x : Oj_mapping.t) : Indent.t list =
 
   | Option (_, x, Option, Option) ->
       [
-        Line (sprintf "Atdgen_runtime.Oj_run.write_%soption ("
+        Line (sprintf "Atdgen_www_runtime.Oj_run.write_%soption ("
                 (if p.std then "std_" else ""));
         Block (make_writer p x);
         Line ")";
@@ -367,7 +367,7 @@ let rec make_writer ?type_constraint p (x : Oj_mapping.t) : Indent.t list =
 
   | Nullable (_, x, Nullable, Nullable) ->
       [
-        Line "Atdgen_runtime.Oj_run.write_nullable (";
+        Line "Atdgen_www_runtime.Oj_run.write_nullable (";
         Block (make_writer p x);
         Line ")";
       ]
@@ -511,7 +511,7 @@ let wrap_tmp_required_value value =
 
 let unwrap_tmp_required_value ocaml_fname var =
   sprintf "(match !%s with Some x -> x \
-           | None -> Atdgen_runtime.Oj_run.missing_field p %S)"
+           | None -> Atdgen_www_runtime.Oj_run.missing_field p %S)"
     var ocaml_fname
 
 (*
@@ -588,7 +588,7 @@ let read_with_adapter adapter reader =
         Oj_mapping.json_normalizer_of_adapter_path adapter_path in
       [
         Line (
-          sprintf "Atdgen_runtime.Oj_run.read_with_adapter %s (" normalize
+          sprintf "Atdgen_www_runtime.Oj_run.read_with_adapter %s (" normalize
         );
         Block reader;
         Line ")";
@@ -610,7 +610,7 @@ let rec make_reader p type_annot (x : Oj_mapping.t) : Indent.t list =
       let open_enum = j.Json.json_open_enum in
       let l = Array.to_list a in
       let fallback_expr =
-        [ Line "Atdgen_runtime.Oj_run.invalid_variant_tag p x" ]
+        [ Line "Atdgen_www_runtime.Oj_run.invalid_variant_tag p x" ]
       in
       let cases =
         make_cases_reader p type_annot
@@ -651,7 +651,7 @@ let rec make_reader p type_annot (x : Oj_mapping.t) : Indent.t list =
             Line "| `Square_bracket -> (";
             Block [
               Block [
-                Line "match Atdgen_runtime.Oj_run.read_string p lb with";
+                Line "match Atdgen_www_runtime.Oj_run.read_string p lb with";
                 Block cases1;
               ];
               Line ")";
@@ -688,8 +688,8 @@ let rec make_reader p type_annot (x : Oj_mapping.t) : Indent.t list =
          Array ->
            let read =
              match o with
-               List -> "Atdgen_runtime.Oj_run.read_list ("
-             | Array -> "Atdgen_runtime.Oj_run.read_array ("
+               List -> "Atdgen_www_runtime.Oj_run.read_list ("
+             | Array -> "Atdgen_www_runtime.Oj_run.read_array ("
            in
            [
              Line read;
@@ -701,8 +701,8 @@ let rec make_reader p type_annot (x : Oj_mapping.t) : Indent.t list =
            let k, v = Ox_emit.get_assoc_type p.deref loc x in
            let read =
              match o with
-               List -> "Atdgen_runtime.Oj_run.read_assoc_list ("
-             | Array -> "Atdgen_runtime.Oj_run.read_assoc_array ("
+               List -> "Atdgen_www_runtime.Oj_run.read_assoc_list ("
+             | Array -> "Atdgen_www_runtime.Oj_run.read_assoc_array ("
            in
            [
              Line read;
@@ -832,7 +832,7 @@ and make_case_reader
             ]
           else
             [
-              Line "Atdgen_runtime.Oj_run.read_until_field_value p lb;";
+              Line "Atdgen_www_runtime.Oj_run.read_until_field_value p lb;";
               Line "let x = (";
               Block [
                 Block (make_reader p None v);
@@ -966,7 +966,7 @@ and make_record_reader p type_annot loc a json_options =
       Block int_mapping_function;
       Line "in";
       Line "let i = Yojson.Safe.map_ident p f lb in";
-      Line "Atdgen_runtime.Oj_run.read_until_field_value p lb;";
+      Line "Atdgen_www_runtime.Oj_run.read_until_field_value p lb;";
       Line "(";
       Block int_matching;
       Line ");";
@@ -1156,7 +1156,7 @@ and make_tuple_reader p a =
     Line "with Yojson.End_of_tuple ->";
     Block [
       Line (sprintf
-              "Atdgen_runtime.Oj_run.missing_tuple_fields p !len %s);"
+              "Atdgen_www_runtime.Oj_run.missing_tuple_fields p !len %s);"
               req_fields);
     ];
   ]

@@ -8,9 +8,9 @@
 (** Module signature required of any json adapter.
     For example, an ATD annotation
     [<json
-       adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field"]
+       adapter.ocaml="Atdgen_www_runtime.Json_adapter.Type_field"]
     refers to the OCaml module
-    [Atdgen_runtime.Json_adapter.Type_field].
+    [Atdgen_www_runtime.Json_adapter.Type_field].
 *)
 module type S = sig
   (** Convert a real json tree into an atd-compliant form. *)
@@ -46,7 +46,7 @@ end
 type obj = [
   | User of user
   | ...
-] <json adapter.ocaml="Atdgen_runtime.Json_adapter.Type_field">
+] <json adapter.ocaml="Atdgen_www_runtime.Json_adapter.Type_field">
 
 type user = {
   id: string;
@@ -102,7 +102,7 @@ end
 type obj = [
   | User of user
   | ...
-] <json adapter.ocaml="Atdgen_runtime.Json_adapter.One_field">
+] <json adapter.ocaml="Atdgen_www_runtime.Json_adapter.One_field">
 
 type user = {
   id: string;
@@ -169,7 +169,7 @@ type payload = [
 ]}
     and the module [My_adapter] defined as follows:
 {[
-module My_adapter = Atdgen_runtime.Json_adapter.Type_and_value_fields.Make(
+module My_adapter = Atdgen_www_runtime.Json_adapter.Type_and_value_fields.Make(
   struct
     let type_field_name = "type"
     let value_field_name = "payload"

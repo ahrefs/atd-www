@@ -296,7 +296,7 @@
  (action (diff test_ocaml_keyword_error2.expected.stdout test_ocaml_keyword_error2.stdout)))
 
 (executables
- (libraries atd atdgen-runtime biniou yojson)
+ (libraries atd atdgen-www-runtime biniou yojson)
  (names test_atdgen_main)
  (modules
   test

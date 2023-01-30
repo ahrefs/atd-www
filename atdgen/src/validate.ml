@@ -29,7 +29,7 @@ let make_full_validator s =
     if (%s) x then
       None
     else
-      Some (Atdgen_runtime.Util.Validation.error ~msg path)"
+      Some (Atdgen_www_runtime.Util.Validation.error ~msg path)"
     (String.escaped s) s
 
 let get_validator an =

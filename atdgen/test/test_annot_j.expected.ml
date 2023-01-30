@@ -47,14 +47,14 @@ let read_pointC = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_f := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_number
+                  Atdgen_www_runtime.Oj_run.read_number
                 ) p lb
               )
             );
@@ -78,14 +78,14 @@ let read_pointC = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_f := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_number
+                    Atdgen_www_runtime.Oj_run.read_number
                   ) p lb
                 )
               );
@@ -98,7 +98,7 @@ let read_pointC = (
     with Yojson.End_of_object -> (
         (
           {
-            f = (match !field_f with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "f");
+            f = (match !field_f with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "f");
           }
          : pointC)
       )
@@ -145,14 +145,14 @@ let read_pointB = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_f := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_number
+                  Atdgen_www_runtime.Oj_run.read_number
                 ) p lb
               )
             );
@@ -176,14 +176,14 @@ let read_pointB = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_f := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_number
+                    Atdgen_www_runtime.Oj_run.read_number
                   ) p lb
                 )
               );
@@ -196,7 +196,7 @@ let read_pointB = (
     with Yojson.End_of_object -> (
         (
           {
-            f = (match !field_f with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "f");
+            f = (match !field_f with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "f");
           }
          : pointB)
       )
@@ -243,14 +243,14 @@ let read_pointA = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_f := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_number
+                  Atdgen_www_runtime.Oj_run.read_number
                 ) p lb
               )
             );
@@ -274,14 +274,14 @@ let read_pointA = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_f := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_number
+                    Atdgen_www_runtime.Oj_run.read_number
                   ) p lb
                 )
               );
@@ -294,7 +294,7 @@ let read_pointA = (
     with Yojson.End_of_object -> (
         (
           {
-            f = (match !field_f with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "f");
+            f = (match !field_f with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "f");
           }
          : pointA)
       )

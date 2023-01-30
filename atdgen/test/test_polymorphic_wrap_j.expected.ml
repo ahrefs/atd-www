@@ -4,7 +4,7 @@
 type 'a t = 'a Array_wrap.t
 
 let write__1 write__a = (
-  Atdgen_runtime.Oj_run.write_list (
+  Atdgen_www_runtime.Oj_run.write_list (
     write__a
   )
 )
@@ -13,7 +13,7 @@ let string_of__1 write__a ?(len = 1024) x =
   write__1 write__a ob x;
   Bi_outbuf.contents ob
 let read__1 read__a = (
-  Atdgen_runtime.Oj_run.read_list (
+  Atdgen_www_runtime.Oj_run.read_list (
     read__a
   )
 )
