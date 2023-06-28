@@ -9,23 +9,23 @@ type pointA = ProtoA_t.pointA = { f: float }
 
 let write_pointC : _ -> pointC -> _ = (
   fun ob (x : pointC) ->
-    Bi_outbuf.add_char ob '{';
+    Buffer.add_char ob '{';
     let is_first = ref true in
     if !is_first then
       is_first := false
     else
-      Bi_outbuf.add_char ob ',';
-    Bi_outbuf.add_string ob "\"f\":";
+      Buffer.add_char ob ',';
+    Buffer.add_string ob "\"f\":";
     (
       Yojson.Safe.write_std_float
     )
       ob x.f;
-    Bi_outbuf.add_char ob '}';
+    Buffer.add_char ob '}';
 )
 let string_of_pointC ?(len = 1024) x =
-  let ob = Bi_outbuf.create len in
+  let ob = Buffer.create len in
   write_pointC ob x;
-  Bi_outbuf.contents ob
+  Buffer.contents ob
 let read_pointC = (
   fun p lb ->
     Yojson.Safe.read_space p lb;
@@ -47,14 +47,14 @@ let read_pointC = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_f := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_number
+                  Atdgen_www_runtime.Oj_run.read_number
                 ) p lb
               )
             );
@@ -78,14 +78,14 @@ let read_pointC = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_f := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_number
+                    Atdgen_www_runtime.Oj_run.read_number
                   ) p lb
                 )
               );
@@ -98,7 +98,7 @@ let read_pointC = (
     with Yojson.End_of_object -> (
         (
           {
-            f = (match !field_f with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "f");
+            f = (match !field_f with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "f");
           }
          : pointC)
       )
@@ -107,23 +107,23 @@ let pointC_of_string s =
   read_pointC (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write_pointB : _ -> pointB -> _ = (
   fun ob (x : pointB) ->
-    Bi_outbuf.add_char ob '{';
+    Buffer.add_char ob '{';
     let is_first = ref true in
     if !is_first then
       is_first := false
     else
-      Bi_outbuf.add_char ob ',';
-    Bi_outbuf.add_string ob "\"f\":";
+      Buffer.add_char ob ',';
+    Buffer.add_string ob "\"f\":";
     (
       Yojson.Safe.write_std_float
     )
       ob x.f;
-    Bi_outbuf.add_char ob '}';
+    Buffer.add_char ob '}';
 )
 let string_of_pointB ?(len = 1024) x =
-  let ob = Bi_outbuf.create len in
+  let ob = Buffer.create len in
   write_pointB ob x;
-  Bi_outbuf.contents ob
+  Buffer.contents ob
 let read_pointB = (
   fun p lb ->
     Yojson.Safe.read_space p lb;
@@ -145,14 +145,14 @@ let read_pointB = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_f := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_number
+                  Atdgen_www_runtime.Oj_run.read_number
                 ) p lb
               )
             );
@@ -176,14 +176,14 @@ let read_pointB = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_f := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_number
+                    Atdgen_www_runtime.Oj_run.read_number
                   ) p lb
                 )
               );
@@ -196,7 +196,7 @@ let read_pointB = (
     with Yojson.End_of_object -> (
         (
           {
-            f = (match !field_f with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "f");
+            f = (match !field_f with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "f");
           }
          : pointB)
       )
@@ -205,23 +205,23 @@ let pointB_of_string s =
   read_pointB (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write_pointA : _ -> pointA -> _ = (
   fun ob (x : pointA) ->
-    Bi_outbuf.add_char ob '{';
+    Buffer.add_char ob '{';
     let is_first = ref true in
     if !is_first then
       is_first := false
     else
-      Bi_outbuf.add_char ob ',';
-    Bi_outbuf.add_string ob "\"f\":";
+      Buffer.add_char ob ',';
+    Buffer.add_string ob "\"f\":";
     (
       Yojson.Safe.write_std_float
     )
       ob x.f;
-    Bi_outbuf.add_char ob '}';
+    Buffer.add_char ob '}';
 )
 let string_of_pointA ?(len = 1024) x =
-  let ob = Bi_outbuf.create len in
+  let ob = Buffer.create len in
   write_pointA ob x;
-  Bi_outbuf.contents ob
+  Buffer.contents ob
 let read_pointA = (
   fun p lb ->
     Yojson.Safe.read_space p lb;
@@ -243,14 +243,14 @@ let read_pointA = (
           )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_f := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_number
+                  Atdgen_www_runtime.Oj_run.read_number
                 ) p lb
               )
             );
@@ -274,14 +274,14 @@ let read_pointA = (
             )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_f := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_number
+                    Atdgen_www_runtime.Oj_run.read_number
                   ) p lb
                 )
               );
@@ -294,7 +294,7 @@ let read_pointA = (
     with Yojson.End_of_object -> (
         (
           {
-            f = (match !field_f with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "f");
+            f = (match !field_f with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "f");
           }
          : pointA)
       )

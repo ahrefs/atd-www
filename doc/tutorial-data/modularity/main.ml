@@ -7,5 +7,5 @@ let v = {
 }
 
 let () =
-  Atdgen_runtime.Util.Json.to_channel Part3_j.write_t3 stdout v;
+  Atdgen_www_runtime.Util.Json.to_channel Part3_j.write_t3 stdout v;
   print_newline ()

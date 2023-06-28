@@ -24,8 +24,8 @@ let make_ocaml_validate_intf ~with_create buf deref defs =
       String.concat "" (
         List.map
           (fun s ->
-             sprintf "\n  (Atdgen_runtime.Util.Validation.path -> '%s -> \
-                      Atdgen_runtime.Util.Validation.error option) ->" s)
+             sprintf "\n  (Atdgen_www_runtime.Util.Validation.path -> '%s -> \
+                      Atdgen_www_runtime.Util.Validation.error option) ->" s)
           x.def_param
       )
     in
@@ -33,7 +33,7 @@ let make_ocaml_validate_intf ~with_create buf deref defs =
     if Ox_emit.is_exportable x then (
       bprintf buf "\
 val validate_%s :%s
-  Atdgen_runtime.Util.Validation.path -> %s -> Atdgen_runtime.Util.Validation.error option
+  Atdgen_www_runtime.Util.Validation.path -> %s -> Atdgen_www_runtime.Util.Validation.error option
   (** Validate a value of type {!%s}. *)
 
 "
@@ -264,8 +264,8 @@ let rec make_validator (x : ov_mapping) : Indent.t list =
       else
         let validate =
           match o with
-            List -> "Atdgen_runtime.Ov_run.validate_list ("
-          | Array -> "Atdgen_runtime.Ov_run.validate_array ("
+            List -> "Atdgen_www_runtime.Ov_run.validate_list ("
+          | Array -> "Atdgen_www_runtime.Ov_run.validate_array ("
         in
         prepend_validator_f v [
           Line validate;
@@ -279,7 +279,7 @@ let rec make_validator (x : ov_mapping) : Indent.t list =
         opt_validator v
       else
         prepend_validator_f v [
-          Line "Atdgen_runtime.Ov_run.validate_option (";
+          Line "Atdgen_www_runtime.Ov_run.validate_option (";
           Block (make_validator x);
           Line ")";
         ]

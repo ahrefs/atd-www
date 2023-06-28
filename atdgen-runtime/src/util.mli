@@ -361,7 +361,7 @@ sig
         Its preset behavior is to call [preset_unknown_field_handler]
         which raises a [Failure] exception.
 
-        Usage: [!Atdgen_runtime.Util.Json.unknown_field_handler src_loc field_name]
+        Usage: [!Atdgen_www_runtime.Util.Json.unknown_field_handler src_loc field_name]
         where [src_loc] is the location of the type definition
         in the source ATD file and [field_name] is the unknown
         JSON field name.

@@ -1,32 +1,32 @@
 (library
  (name spec_js)
  (modules spec_t spec_j spec_js spec_bs spec_w)
- (libraries atdgen-runtime atdgen-codec-runtime biniou yojson))
+ (libraries atdgen-www-runtime atdgen-codec-runtime biniou yojson))
 
 (rule
  (targets spec_t.ml spec_t.mli)
  (deps spec.atd)
- (action (run atdgen %{deps} -t)))
+ (action (run atdgen-www %{deps} -t)))
 
 (rule
  (targets spec_j.ml spec_j.mli)
  (deps spec.atd)
- (action (run atdgen %{deps} -j -j-std)))
+ (action (run atdgen-www %{deps} -j -j-std)))
 
 (rule
  (targets spec_bs.ml spec_bs.mli)
  (deps spec.atd)
- (action (run atdgen %{deps} -bs)))
+ (action (run atdgen-www %{deps} -bs)))
 
 (rule
  (targets spec_w.ml spec_w.mli)
  (deps spec.atd)
- (action (run atdgen %{deps} -w)))
+ (action (run atdgen-www %{deps} -w)))
 
 (executable
  (name test_j)
  (modules test_j)
- (libraries spec_js atdgen-runtime yojson))
+ (libraries spec_js atdgen-www-runtime yojson))
 
 (executable
  (name test_bs)
@@ -36,7 +36,7 @@
 (executable
  (name test_w)
  (modules test_w)
- (libraries spec_js atdgen-runtime yojson))
+ (libraries spec_js atdgen-www-runtime yojson))
 
 (rule
  (targets spec_j.json)
@@ -44,7 +44,7 @@
 
 (alias
  (name runtest)
- (package atdgen)
+ (package atdgen-www)
  (action (diff spec_j.expected.json spec_j.json)))
 
 (rule
@@ -53,7 +53,7 @@
 
 (alias
  (name runtest)
- (package atdgen)
+ (package atdgen-www)
  (action (diff spec_bs.expected.json spec_bs.json)))
 
 (rule

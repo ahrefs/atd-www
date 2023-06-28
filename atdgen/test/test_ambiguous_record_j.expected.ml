@@ -3,15 +3,15 @@
 open Test_ambiguous_record_t
 
 let write_ambiguous' : _ -> ambiguous' -> _ = (
-  Atdgen_runtime.Oj_run.write_with_adapter Json_adapters.Identity.restore (
+  Atdgen_www_runtime.Oj_run.write_with_adapter Json_adapters.Identity.restore (
     fun ob (x : ambiguous') ->
-      Bi_outbuf.add_char ob '{';
+      Buffer.add_char ob '{';
       let is_first = ref true in
       if !is_first then
         is_first := false
       else
-        Bi_outbuf.add_char ob ',';
-      Bi_outbuf.add_string ob "\"ambiguous\":";
+        Buffer.add_char ob ',';
+      Buffer.add_string ob "\"ambiguous\":";
       (
         Yojson.Safe.write_string
       )
@@ -19,21 +19,21 @@ let write_ambiguous' : _ -> ambiguous' -> _ = (
       if !is_first then
         is_first := false
       else
-        Bi_outbuf.add_char ob ',';
-      Bi_outbuf.add_string ob "\"not_ambiguous2\":";
+        Buffer.add_char ob ',';
+      Buffer.add_string ob "\"not_ambiguous2\":";
       (
         Yojson.Safe.write_int
       )
         ob x.not_ambiguous2;
-      Bi_outbuf.add_char ob '}';
+      Buffer.add_char ob '}';
   )
 )
 let string_of_ambiguous' ?(len = 1024) x =
-  let ob = Bi_outbuf.create len in
+  let ob = Buffer.create len in
   write_ambiguous' ob x;
-  Bi_outbuf.contents ob
+  Buffer.contents ob
 let read_ambiguous' = (
-  Atdgen_runtime.Oj_run.read_with_adapter Json_adapters.Identity.normalize (
+  Atdgen_www_runtime.Oj_run.read_with_adapter Json_adapters.Identity.normalize (
     fun p lb ->
       Yojson.Safe.read_space p lb;
       Yojson.Safe.read_lcurl p lb;
@@ -69,14 +69,14 @@ let read_ambiguous' = (
                 )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_ambiguous := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_string
+                    Atdgen_www_runtime.Oj_run.read_string
                   ) p lb
                 )
               );
@@ -84,7 +84,7 @@ let read_ambiguous' = (
               field_not_ambiguous2 := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_int
+                    Atdgen_www_runtime.Oj_run.read_int
                   ) p lb
                 )
               );
@@ -122,14 +122,14 @@ let read_ambiguous' = (
                   )
           in
           let i = Yojson.Safe.map_ident p f lb in
-          Atdgen_runtime.Oj_run.read_until_field_value p lb;
+          Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
           (
             match i with
               | 0 ->
                 field_ambiguous := (
                   Some (
                     (
-                      Atdgen_runtime.Oj_run.read_string
+                      Atdgen_www_runtime.Oj_run.read_string
                     ) p lb
                   )
                 );
@@ -137,7 +137,7 @@ let read_ambiguous' = (
                 field_not_ambiguous2 := (
                   Some (
                     (
-                      Atdgen_runtime.Oj_run.read_int
+                      Atdgen_www_runtime.Oj_run.read_int
                     ) p lb
                   )
                 );
@@ -150,8 +150,8 @@ let read_ambiguous' = (
       with Yojson.End_of_object -> (
           (
             {
-              ambiguous = (match !field_ambiguous with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "ambiguous");
-              not_ambiguous2 = (match !field_not_ambiguous2 with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "not_ambiguous2");
+              ambiguous = (match !field_ambiguous with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "ambiguous");
+              not_ambiguous2 = (match !field_not_ambiguous2 with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "not_ambiguous2");
             }
            : ambiguous')
         )
@@ -161,13 +161,13 @@ let ambiguous'_of_string s =
   read_ambiguous' (Yojson.Safe.init_lexer ()) (Lexing.from_string s)
 let write_ambiguous : _ -> ambiguous -> _ = (
   fun ob (x : ambiguous) ->
-    Bi_outbuf.add_char ob '{';
+    Buffer.add_char ob '{';
     let is_first = ref true in
     if !is_first then
       is_first := false
     else
-      Bi_outbuf.add_char ob ',';
-    Bi_outbuf.add_string ob "\"ambiguous\":";
+      Buffer.add_char ob ',';
+    Buffer.add_string ob "\"ambiguous\":";
     (
       Yojson.Safe.write_string
     )
@@ -175,18 +175,18 @@ let write_ambiguous : _ -> ambiguous -> _ = (
     if !is_first then
       is_first := false
     else
-      Bi_outbuf.add_char ob ',';
-    Bi_outbuf.add_string ob "\"not_ambiguous1\":";
+      Buffer.add_char ob ',';
+    Buffer.add_string ob "\"not_ambiguous1\":";
     (
       Yojson.Safe.write_int
     )
       ob x.not_ambiguous1;
-    Bi_outbuf.add_char ob '}';
+    Buffer.add_char ob '}';
 )
 let string_of_ambiguous ?(len = 1024) x =
-  let ob = Bi_outbuf.create len in
+  let ob = Buffer.create len in
   write_ambiguous ob x;
-  Bi_outbuf.contents ob
+  Buffer.contents ob
 let read_ambiguous = (
   fun p lb ->
     Yojson.Safe.read_space p lb;
@@ -223,14 +223,14 @@ let read_ambiguous = (
               )
       in
       let i = Yojson.Safe.map_ident p f lb in
-      Atdgen_runtime.Oj_run.read_until_field_value p lb;
+      Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
       (
         match i with
           | 0 ->
             field_ambiguous := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_string
+                  Atdgen_www_runtime.Oj_run.read_string
                 ) p lb
               )
             );
@@ -238,7 +238,7 @@ let read_ambiguous = (
             field_not_ambiguous1 := (
               Some (
                 (
-                  Atdgen_runtime.Oj_run.read_int
+                  Atdgen_www_runtime.Oj_run.read_int
                 ) p lb
               )
             );
@@ -276,14 +276,14 @@ let read_ambiguous = (
                 )
         in
         let i = Yojson.Safe.map_ident p f lb in
-        Atdgen_runtime.Oj_run.read_until_field_value p lb;
+        Atdgen_www_runtime.Oj_run.read_until_field_value p lb;
         (
           match i with
             | 0 ->
               field_ambiguous := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_string
+                    Atdgen_www_runtime.Oj_run.read_string
                   ) p lb
                 )
               );
@@ -291,7 +291,7 @@ let read_ambiguous = (
               field_not_ambiguous1 := (
                 Some (
                   (
-                    Atdgen_runtime.Oj_run.read_int
+                    Atdgen_www_runtime.Oj_run.read_int
                   ) p lb
                 )
               );
@@ -304,8 +304,8 @@ let read_ambiguous = (
     with Yojson.End_of_object -> (
         (
           {
-            ambiguous = (match !field_ambiguous with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "ambiguous");
-            not_ambiguous1 = (match !field_not_ambiguous1 with Some x -> x | None -> Atdgen_runtime.Oj_run.missing_field p "not_ambiguous1");
+            ambiguous = (match !field_ambiguous with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "ambiguous");
+            not_ambiguous1 = (match !field_not_ambiguous1 with Some x -> x | None -> Atdgen_www_runtime.Oj_run.missing_field p "not_ambiguous1");
           }
          : ambiguous)
       )
