@@ -1,4 +1,4 @@
 (library
- (name atdgen_www_runtime)
- (public_name atdgen-www-runtime)
+ (name atdgen_extra_runtime)
+ (public_name atdgen-extra-runtime)
  (libraries biniou yojson))

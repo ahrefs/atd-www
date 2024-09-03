@@ -1,6 +1,6 @@
 ;; this is a deprecated library whose only purpose is to re-export the runtime
-;; new users should be using atdgen_www_runtime
+;; new users should be using atdgen_extra_runtime
 (library
- (name atdgen_www)
- (public_name atdgen-www)
- (libraries atdgen_www_runtime))
+ (name atdgen_extra)
+ (public_name atdgen-extra)
+ (libraries atdgen_extra_runtime))
