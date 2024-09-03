@@ -82,7 +82,7 @@ module Repr = struct
     | Def of atd_ocaml_def
 end
 
-type target = Default | Biniou | Json | WWW | Validate | Bucklescript
+type target = Default | Biniou | Json | Name | WWW | Validate | Bucklescript
 
 
 let ocaml_int_of_string s : atd_ocaml_int option =
@@ -130,6 +130,7 @@ let path_of_target (target : target) =
     | Default -> [ "ocaml" ]
     | Biniou -> [ "ocaml_biniou"; "ocaml" ]
     | Json -> [ "ocaml_json"; "ocaml" ]
+    | Name -> [ "ocaml_name"; "ocaml" ]
     | Bucklescript -> ["ocaml_bs"; "ocaml"]
     | WWW -> [ "ocaml_www"; "ocaml" ]
     | Validate -> [ "ocaml_validate"; "ocaml" ]
@@ -314,6 +315,7 @@ let get_ocaml_module target an =
           | Biniou -> s ^ "_b"
           | Json -> s ^ "_j"
           | Bucklescript -> s ^ "_bs"
+          | Name -> s ^ "_n"
           | WWW -> s ^ "_w"
           | Validate -> s ^ "_v"
         in

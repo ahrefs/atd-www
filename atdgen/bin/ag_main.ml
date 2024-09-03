@@ -32,6 +32,7 @@ type mode =
   | T (* -t (type defs and create_* functions) *)
   | B (* -b (biniou serialization) *)
   | J (* -j (json serialization) *)
+  | N (* -n (name serialization) *)
   | W (* -w (www-form serialization) *)
   | V (* -v (validators) *)
   | Dep (* -dep (print all file dependencies produced by -t -b -j -v) *)
@@ -113,6 +114,12 @@ let main () =
           containing OCaml serializers and deserializers for the JSON
           data format from the specifications in example.atd using
           bucklescript's json api.";
+
+    "-n", Arg.Unit (fun () -> set_once "output type" mode N),
+    "
+          Produce files example_n.mli and example_n.ml
+          containing OCaml serializers and deserializers for the names
+          from the specifications in example.atd.";
 
     "-w", Arg.Unit (fun () -> set_once "output type" mode W),
     "
@@ -296,7 +303,7 @@ Recommended usage: %s (-t|-b|-j|-w|-v|-dep|-list|-bs) example.atd" Sys.argv.(0) 
         Some x -> x
       | None ->
           match mode with
-              T | B | J | W | Bucklescript -> false
+              T | B | J | N | W | Bucklescript -> false
             | V -> true
             | Biniou | Json | Validate -> true
             | Dep | List -> true (* don't care *)
@@ -307,6 +314,7 @@ Recommended usage: %s (-t|-b|-j|-w|-v|-dep|-list|-bs) example.atd" Sys.argv.(0) 
         J | Json -> !j_defaults
       | T
       | B | Biniou
+      | N
       | W
       | V | Validate
       | Bucklescript
@@ -342,6 +350,7 @@ Recommended usage: %s (-t|-b|-j|-w|-v|-dep|-list|-bs) example.atd" Sys.argv.(0) 
                  T -> base ^ "_t"
                | B -> base ^ "_b"
                | J -> base ^ "_j"
+               | N -> base ^ "_n"
                | W -> base ^ "_w"
                | V -> base ^ "_v"
                | Bucklescript -> base ^ "_bs"
@@ -356,7 +365,7 @@ Recommended usage: %s (-t|-b|-j|-w|-v|-dep|-list|-bs) example.atd" Sys.argv.(0) 
     match base_prefix with
         None ->
           (match mode with
-               B | J | W | V | Bucklescript -> Some "T"
+               B | J | N | W | V | Bucklescript -> Some "T"
            | Biniou | Validate
            | T | Dep | List
            | Json -> None
@@ -366,7 +375,7 @@ Recommended usage: %s (-t|-b|-j|-w|-v|-dep|-list|-bs) example.atd" Sys.argv.(0) 
               Some _ as x -> x
             | None ->
                 (match mode with
-                     B | J | W | V | Bucklescript ->
+                     B | J | N | W | V | Bucklescript ->
                        Some (String.capitalize_ascii (Filename.basename base) ^ "_t")
                  | T | Json | Dep | List | Validate
                    | Biniou -> None
@@ -381,7 +390,7 @@ Recommended usage: %s (-t|-b|-j|-w|-v|-dep|-list|-bs) example.atd" Sys.argv.(0) 
       Dep -> print_deps (get_base_prefix ())
     | List -> print_file_list (get_base_prefix ())
     | Bucklescript
-    | T | B | J | W | V | Biniou | Json | Validate ->
+    | T | B | J | N | W | V | Biniou | Json | Validate ->
 
         let opens = List.rev !opens in
         let make_ocaml_files =
@@ -393,6 +402,10 @@ Recommended usage: %s (-t|-b|-j|-w|-v|-dep|-list|-bs) example.atd" Sys.argv.(0) 
             | J | Json ->
                 Oj_emit.make_ocaml_files
                   ~std: !std_json
+                  ~unknown_field_handler: !unknown_field_handler
+                  ~preprocess_input: !j_preprocess_input
+            | N ->
+                On_emit.make_ocaml_files
                   ~unknown_field_handler: !unknown_field_handler
                   ~preprocess_input: !j_preprocess_input
             | W ->
