@@ -2,14 +2,6 @@
   Mapping from ATD to names
 *)
 
-type name_adapter = {
-  ocaml_adapter : string option;
-}
-
-let no_adapter = {
-  ocaml_adapter = None;
-}
-
 type name_float =
   | Float of int option (* max decimal places *)
   | Int
@@ -28,28 +20,14 @@ type name_field = {
   name_unwrapped : bool;
 }
 
-type name_record = {
-  name_record_adapter : name_adapter;
-}
-
 type name_sum = {
-  name_sum_adapter : name_adapter;
   name_open_enum : bool;
-  name_lowercase_tags : bool;
 }
 
 let section = "name"
 
 let sections = [ section ]
 
-(*
-   Note that name adapters are supported only by records and sums
-   at this time.
-   TODO: Support name adapters for all kinds of nodes rather than just
-   sums and records, preferably without major code duplication.
-   Maybe this can be achieved by turning name_repr
-   into (name_repr * name_adapter).
-*)
 type name_repr =
   | Bool
   | Cell
@@ -61,7 +39,7 @@ type name_repr =
   | List of name_list
   | Nullable
   | Option
-  | Record of name_record
+  | Record
   | String
   | Sum of name_sum
   | Tuple
@@ -104,30 +82,11 @@ let name_list_repr_of_string s : [ `Array | `Object ] option =
   | "object" -> Some `Object
   | _ -> (* error *) None
 
-(*
-   <name adapter.ocaml="Foo.Bar">
-   --> { ocaml_adapter = Some "Foo.Bar"; }
-*)
-let get_name_adapter an =
-  let ocaml_adapter =
-    Atd.Annot.get_opt_field
-      ~parse:(fun s -> Some s)
-      ~sections
-      ~field:"adapter.ocaml"
-      an
-  in
-  { ocaml_adapter }
-
 let get_name_open_enum an =
   Atd.Annot.get_flag ~sections ~field:"open_enum" an
 
-let get_name_lowercase_tags an =
-  Atd.Annot.get_flag ~sections ~field:"lowercase_tags" an
-
 let get_name_sum an = {
-  name_sum_adapter = get_name_adapter an;
   name_open_enum = get_name_open_enum an;
-  name_lowercase_tags = get_name_lowercase_tags an;
 }
 
 let get_name_list an =
@@ -175,11 +134,6 @@ let get_name_fname default an =
     ~sections
     ~field:"name"
     an
-
-let get_name_record an =
-  {
-    name_record_adapter = get_name_adapter an;
-  }
 
 let tests = [
 ]

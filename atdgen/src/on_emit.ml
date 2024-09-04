@@ -138,7 +138,7 @@ let rec make_writer ?type_constraint p (x : mapping) : Indent.t list =
   | Int _
   | Float _
   | Tvar _
-  | Record (_, _, Record _, Record _)
+  | Record (_, _, Record _, Record)
   | Tuple (_, _, Tuple, Tuple)
   | List (_, _, List _, List _)
   | Option (_, _, Option, Option)
@@ -217,7 +217,7 @@ let rec make_reader p ?type_constraint (x : mapping) : Indent.t list =
   | Float _
   | External _
   | Tvar _
-  | Record (_, _, Record _, Record _)
+  | Record (_, _, Record _, Record)
   | Tuple (_, _, Tuple, Tuple)
   | List (_, _, List _, List _)
   | Option (_, _, Option, Option)
@@ -412,7 +412,7 @@ let rec mapping_of_expr (x : type_expr) =
   | Record (loc, l, an) ->
       let ocaml_t = Ocaml.Repr.Record (Ocaml.get_ocaml_record Name an) in
       let ocaml_field_prefix = Ocaml.get_ocaml_field_prefix Name an in
-      let name_t = Name.Record (Name.get_name_record an) in
+      let name_t = Name.Record in
       Record (loc,
               Array.of_list
                 (List.map (mapping_of_field ocaml_field_prefix) l),
