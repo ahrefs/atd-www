@@ -12,6 +12,7 @@ let target : Ocaml.target = Name
 
 type mapping = (Ocaml.Repr.t, Name.name_repr) Mapping.mapping
 type field_mapping = (Ocaml.Repr.t, Name.name_repr) Mapping.field_mapping
+type variant_mapping = (Ocaml.Repr.t, Name.name_repr) Mapping.variant_mapping
 
 type field =
   { mapping : field_mapping
@@ -62,8 +63,16 @@ let make_ocaml_name_intf ~with_create buf deref defs =
         bprintf buf "\
 val string_of_%s :
   %s -> string
-  (** Serialize a value of type {!%s}
-      into a name. *)
+  (** Serialize a value of type {!%s} into a name. *)
+
+"
+          s
+          full_name
+          s;
+        bprintf buf "\
+val %s_of_string :
+  string -> %s
+  (** Deserialize a name to a value of type {!%s}. *)
 
 "
           s
@@ -76,16 +85,11 @@ val string_of_%s :
   ('a, foo) t           -> write_t write__a write_foo
   ('a, (foo, 'b) bar) t -> write_t write__a (write_bar write_foo write__b)
 *)
-let get_writer_name ?(paren = false) ?(name_f = fun s -> "write_" ^ s) s =
-  if paren then "(" ^ name_f s ^ ")" else name_f s
-
-let get_left_writer_name name =
-  get_writer_name name
-
 let get_left_to_string_name name =
-  let name_f s = "string_of_" ^ s in
-  get_writer_name ~name_f name
+  "string_of_" ^ name
 
+let get_left_of_string_name name =
+  name ^ "_of_string"
 
 let rec make_writer ?type_constraint p (x : mapping) : Indent.t list =
   match x with
@@ -113,7 +117,9 @@ let rec make_writer ?type_constraint p (x : mapping) : Indent.t list =
            [
              Annot ("fun", Line "fun x ->");
              Block [
-               Line (sprintf "( %s ) x" ocaml_unwrap);
+               Line (sprintf "let x = ( %s ) x in (" ocaml_unwrap);
+               Block (make_writer p ?type_constraint x);
+               Line ") x";
              ]
            ]
       )
@@ -123,12 +129,14 @@ let rec make_writer ?type_constraint p (x : mapping) : Indent.t list =
         Line (get_left_to_string_name x);
       ]
 
+  | String _ ->
+      [ Annot ("fun", Line "fun x -> x"); ]
+
   | External (_, _, _, External _, External)
   | Unit _
   | Bool _
   | Int _
   | Float _
-  | String _
   | Tvar _
   | Record (_, _, Record _, Record _)
   | Tuple (_, _, Tuple, Tuple)
@@ -148,12 +156,121 @@ and make_variant_writer p ~tick ~open_enum x : Indent.t list =
   in
   let ocaml_cons = o.Ocaml.ocaml_cons in
   let name_cons = j.Name.name_cons in
-  let arg = match x.var_arg with None -> "" | Some _ -> " _" in
-  [
-    Line (sprintf "| %s%s%s -> %S" tick ocaml_cons arg name_cons);
-  ]
+  match x.var_arg with
+  | None ->
+    [ Line (sprintf "| %s%s -> %S" tick ocaml_cons name_cons); ]
+  | Some v when open_enum ->
+    [
+      Line (sprintf "| %s%s x -> (" tick ocaml_cons);
+      Block [
+        Block (make_writer p v);
+        Line ") x";
+      ];
+    ]
+  | Some v ->
+    [ Line (sprintf "| %s%s _ -> %S" tick ocaml_cons name_cons); ]
 
-let make_ocaml_name_data_writer p ~original_types is_rec let1 let2 def deref =
+let rec make_reader p ?type_constraint (x : mapping) : Indent.t list =
+  match x with
+  | Sum (_, a, Sum o, Sum j) ->
+      let tick = Ocaml.tick o in
+      let open_enum = j.Name.name_open_enum in
+      let l = Array.to_list a in
+      let fallback_expr =
+        [ Line "Atdgen_extra_runtime.On_run.invalid_variant_tag x" ]
+      in
+      let cases =
+        make_cases_reader p type_constraint ~tick ~open_enum ~fallback_expr l
+      in
+      let standard_reader =
+        [
+          Annot ("fun", Line "function");
+          Block cases;
+        ]
+      in
+      standard_reader
+
+  | Wrap (_, x, Wrap o, Wrap) ->
+      (match o with
+         None -> make_reader p ?type_constraint x
+       | Some { Ocaml.ocaml_wrap; _ } ->
+           [
+             Annot ("fun", Line "fun x ->");
+             Block [
+               Line "let x = (";
+               Block (make_reader p ?type_constraint x);
+               Line ") x in";
+               Line (sprintf "( %s ) x" ocaml_wrap);
+             ]
+           ]
+      )
+
+  | Name (_, x, _args, None, None) ->
+      [ Line (get_left_of_string_name x) ]
+
+  | String _ ->
+      [ Annot ("fun", Line "fun x -> x"); ]
+
+  | Unit _
+  | Bool _
+  | Int _
+  | Float _
+  | External _
+  | Tvar _
+  | Record (_, _, Record _, Record _)
+  | Tuple (_, _, Tuple, Tuple)
+  | List (_, _, List _, List _)
+  | Option (_, _, Option, Option)
+  | Nullable (_, _, Nullable, Nullable) ->
+      assert false
+
+  | _ -> assert false
+
+and make_case_reader p type_annot ~tick ~open_enum (x : variant_mapping) : (bool * Indent.t list) =
+  let o, j =
+    match x.var_arepr, x.var_brepr with
+      Variant o, Variant j -> o, j
+    | _ -> assert false
+  in
+  let ocaml_cons = o.Ocaml.ocaml_cons in
+  let name_cons = j.Name.name_cons in
+  let catch_all, expr =
+    match x.var_arg with
+    | None ->
+      false, [ Line (sprintf "| %S -> %s%s" name_cons tick ocaml_cons); ]
+    | Some _ when open_enum ->
+      let expr = [ Line (Ox_emit.opt_annot type_annot (sprintf "%s%s x" tick ocaml_cons)); ] in
+      true, expr
+    | Some _ ->
+      false, []
+  in
+  (catch_all, expr)
+
+and make_cases_reader p type_annot ~tick ~open_enum ~fallback_expr l =
+  let cases =
+    List.map
+      (make_case_reader p type_annot ~tick ~open_enum)
+      l
+  in
+  let catch_alls, specific_cases =
+    List.partition fst cases
+  in
+  let catch_all =
+    match catch_alls with
+    | [] -> [ Line "| x ->"; Block fallback_expr; ]
+    | [(_, expr)] -> [ Line "| x ->"; Block expr; ]
+    | _ -> assert false
+  in
+  let all_cases =
+    List.map (function
+      | false, expr -> Inline expr
+      | true, _ -> assert false
+    ) specific_cases
+  in
+  all_cases @ catch_all
+
+
+let make_ocaml_name_writer p ~original_types is_rec let1 let2 def deref =
   let x = Option.value_exn def.def_value in
   match deref x with
   | Unit _
@@ -173,17 +290,50 @@ let make_ocaml_name_data_writer p ~original_types is_rec let1 let2 def deref =
   let name = def.def_name in
   let type_constraint = Ox_emit.get_type_constraint ~original_types def in
   let _param = def.def_param in
-  let _write = get_left_writer_name name in
   let to_string = get_left_to_string_name name in
-  let needs_annot = Ox_emit.needs_type_annot x in
-  let writer_expr =
-    if needs_annot
-    then make_writer ~type_constraint p x
-    else make_writer p x
+  let type_constraint =
+    match Ox_emit.needs_type_annot x with
+    | true -> Some type_constraint
+    | false -> None
   in
+  let writer_expr = make_writer ?type_constraint p x in
   [
     Line (sprintf "%s %s =" let2 to_string);
     Block (List.map Indent.strip writer_expr);
+    Line "";
+  ]
+
+let make_ocaml_name_reader p ~original_types is_rec let1 let2 def deref =
+  let x = Option.value_exn def.def_value in
+  match deref x with
+  | Unit _
+  | Bool _
+  | Int _
+  | Float _
+  | String _
+  | Tvar _
+  | Record _
+  | Tuple _
+  | List _
+  | Option _
+  | Nullable _
+  | External _ ->
+    []
+  | Sum _ | Wrap _ | Name _ ->
+  let name = def.def_name in
+  let type_constraint = Ox_emit.get_type_constraint ~original_types def in
+  let _param = def.def_param in
+  let of_string = get_left_of_string_name name in
+  let type_constraint =
+    match Ox_emit.needs_type_annot x with
+    | true -> Some type_constraint
+    | false -> None
+  in
+  let reader_expr = make_reader p ?type_constraint x in
+  [
+    Line (sprintf "%s %s =" let2 of_string);
+    Block (List.map Indent.strip reader_expr);
+    Line "";
   ]
 
 let make_ocaml_name_impl
@@ -204,16 +354,22 @@ let make_ocaml_name_impl
     let writers =
       List.map_first (fun ~is_first def ->
         let let1, let2 = Ox_emit.get_let ~is_rec ~is_first in
-        make_ocaml_name_data_writer p ~original_types is_rec let1 let2 def deref
+        make_ocaml_name_writer p ~original_types is_rec let1 let2 def deref
       ) l
     in
-    List.flatten writers)
+    let readers =
+      List.map_first (fun ~is_first def ->
+        let let1, let2 = Ox_emit.get_let ~is_rec ~is_first in
+        make_ocaml_name_reader p ~original_types is_rec let1 let2 def deref
+      ) l
+    in
+    List.flatten (writers @ readers))
   |> Indent.to_buffer buf;
   Ox_emit.maybe_write_creator_impl ~with_create deref buf defs
 
 
 (*
-  Translation of the types into the ocaml/name-form mapping.
+  Translation of the types into the ocaml/name mapping.
 *)
 
 let check_name_sum loc name_sum_param variants =
