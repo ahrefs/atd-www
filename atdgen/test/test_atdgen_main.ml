@@ -634,6 +634,10 @@ let test_polymorphic_wrap () =
     Test_polymorphic_wrap_j.t_of_string Yojson.Safe.read_string json_out in
   check (x = x2)
 
+let test_sum_constructor_names () =
+  section "testing printing of sum types' constructor names";
+  check (Test_name_n.string_of_sum_poly `A = "a")
+
 let all_tests = [
   test_ocaml_internals;
   test_biniou_missing_field;
@@ -669,6 +673,7 @@ let all_tests = [
   test_tag_field_emulation_with_catchall;
   test_json_open_enum;
   test_ambiguous_record;
+  test_sum_constructor_names;
 ]
 
 (* TODO: use Alcotest to run the test suite. *)

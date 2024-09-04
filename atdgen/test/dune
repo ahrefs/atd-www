@@ -295,6 +295,28 @@
  (package atdgen-extra)
  (action (diff test_ocaml_keyword_error2.expected.stdout test_ocaml_keyword_error2.stdout)))
 
+(rule
+ (targets test_name_n.ml test_name_n.mli)
+ (deps    test_name.atd)
+ (action
+  (run %{bin:atdgen-extra} -n %{deps})))
+
+(rule
+ (targets test_name_t.ml test_name_t.mli)
+ (deps    test_name.atd)
+ (action
+  (run %{bin:atdgen-extra} -t %{deps})))
+
+(alias
+ (name runtest)
+ (package atdgen-extra)
+ (action (diff test_name_n.expected.ml test_name_n.ml)))
+
+(alias
+ (name runtest)
+ (package atdgen-extra)
+ (action (diff test_name_n.expected.mli test_name_n.mli)))
+
 (executables
  (libraries atd atdgen-extra-runtime biniou yojson)
  (names test_atdgen_main)
@@ -313,6 +335,8 @@
   testv
   test_unit_biniou_t
   test_unit_biniou_b
+  test_name_t
+  test_name_n
   test_atdgen_main
   test_lib
   ))
