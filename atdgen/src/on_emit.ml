@@ -170,7 +170,7 @@ and make_variant_writer p ~tick ~open_enum x : Indent.t list =
   | Some v ->
     [ Line (sprintf "| %s%s _ -> %S" tick ocaml_cons name_cons); ]
 
-let rec make_reader p ?type_constraint (x : mapping) : Indent.t list =
+let rec make_reader p ?type_annot (x : mapping) : Indent.t list =
   match x with
   | Sum (_, a, Sum o, Sum j) ->
       let tick = Ocaml.tick o in
@@ -180,7 +180,7 @@ let rec make_reader p ?type_constraint (x : mapping) : Indent.t list =
         [ Line "Atdgen_extra_runtime.On_run.invalid_variant_tag x" ]
       in
       let cases =
-        make_cases_reader p type_constraint ~tick ~open_enum ~fallback_expr l
+        make_cases_reader p type_annot ~tick ~open_enum ~fallback_expr l
       in
       let standard_reader =
         [
@@ -192,13 +192,13 @@ let rec make_reader p ?type_constraint (x : mapping) : Indent.t list =
 
   | Wrap (_, x, Wrap o, Wrap) ->
       (match o with
-         None -> make_reader p ?type_constraint x
+         None -> make_reader p ?type_annot x
        | Some { Ocaml.ocaml_wrap; _ } ->
            [
              Annot ("fun", Line "fun x ->");
              Block [
                Line "let x = (";
-               Block (make_reader p ?type_constraint x);
+               Block (make_reader p ?type_annot x);
                Line ") x in";
                Line (sprintf "( %s ) x" ocaml_wrap);
              ]
@@ -226,7 +226,7 @@ let rec make_reader p ?type_constraint (x : mapping) : Indent.t list =
 
   | _ -> assert false
 
-and make_case_reader p type_annot ~tick ~open_enum (x : variant_mapping) : (bool * Indent.t list) =
+and make_case_reader p type_annot ~tick ~open_enum (x : variant_mapping) : (string option * Indent.t list option) =
   let o, j =
     match x.var_arepr, x.var_brepr with
       Variant o, Variant j -> o, j
@@ -237,14 +237,16 @@ and make_case_reader p type_annot ~tick ~open_enum (x : variant_mapping) : (bool
   let catch_all, expr =
     match x.var_arg with
     | None ->
-      false, [ Line (sprintf "| %S -> %s%s" name_cons tick ocaml_cons); ]
+      let expr = [ Line (Ox_emit.opt_annot type_annot (sprintf "%s%s" tick ocaml_cons)); ] in
+      false, Some expr
     | Some _ when open_enum ->
       let expr = [ Line (Ox_emit.opt_annot type_annot (sprintf "%s%s x" tick ocaml_cons)); ] in
-      true, expr
+      true, Some expr
     | Some _ ->
-      false, []
+      false, None
   in
-  (catch_all, expr)
+  let opt_name_cons = if catch_all then None else Some name_cons in
+  (opt_name_cons, expr)
 
 and make_cases_reader p type_annot ~tick ~open_enum ~fallback_expr l =
   let cases =
@@ -252,19 +254,24 @@ and make_cases_reader p type_annot ~tick ~open_enum ~fallback_expr l =
       (make_case_reader p type_annot ~tick ~open_enum)
       l
   in
-  let catch_alls, specific_cases =
-    List.partition fst cases
+  let specific_cases, catch_alls =
+    List.partition (function Some _, _ -> true | None, _ -> false) cases
   in
   let catch_all =
     match catch_alls with
     | [] -> [ Line "| x ->"; Block fallback_expr; ]
-    | [(_, expr)] -> [ Line "| x ->"; Block expr; ]
+    | [(_, Some expr)] -> [ Line "| x ->"; Block expr; ]
     | _ -> assert false
   in
   let all_cases =
     List.map (function
-      | false, expr -> Inline expr
-      | true, _ -> assert false
+      | Some _, None -> Inline []
+      | Some name_cons, Some expr ->
+        Inline [
+          Line (sprintf "| %S ->" name_cons);
+          Block expr;
+        ]
+      | None, _ -> assert false
     ) specific_cases
   in
   all_cases @ catch_all
@@ -291,15 +298,21 @@ let make_ocaml_name_writer p ~original_types is_rec let1 let2 def deref =
   let type_constraint = Ox_emit.get_type_constraint ~original_types def in
   let _param = def.def_param in
   let to_string = get_left_to_string_name name in
-  let type_constraint =
-    match Ox_emit.needs_type_annot x with
-    | true -> Some type_constraint
-    | false -> None
-  in
+  let type_constraint = match Ox_emit.needs_type_annot x with true -> Some type_constraint | false -> None in
   let writer_expr = make_writer ?type_constraint p x in
+  let eta_expand = is_rec && not (Ox_emit.is_lambda writer_expr) in
+  let extra_param, extra_args, type_annot =
+    match eta_expand, type_constraint with
+    | true, None -> " x", " x", None
+    | true, Some type_constraint -> sprintf " (x : %s)" type_constraint, " x", None
+    | false, None -> "", "", None
+    | false, Some type_constraint -> "", "", Some (sprintf "%s -> _" type_constraint)
+  in
   [
-    Line (sprintf "%s %s =" let2 to_string);
+    Line (sprintf "%s %s = ("
+            let2 (Ox_emit.opt_annot_def type_annot (to_string ^ extra_param)));
     Block (List.map Indent.strip writer_expr);
+    Line (sprintf ")%s" extra_args);
     Line "";
   ]
 
@@ -324,15 +337,18 @@ let make_ocaml_name_reader p ~original_types is_rec let1 let2 def deref =
   let type_constraint = Ox_emit.get_type_constraint ~original_types def in
   let _param = def.def_param in
   let of_string = get_left_of_string_name name in
-  let type_constraint =
+  let type_annot =
     match Ox_emit.needs_type_annot x with
     | true -> Some type_constraint
     | false -> None
   in
-  let reader_expr = make_reader p ?type_constraint x in
+  let reader_expr = make_reader p ?type_annot x in
+  let eta_expand = is_rec && not (Ox_emit.is_lambda reader_expr) in
+  let extra_param, extra_args = if eta_expand then " x", " x" else "", "" in
   [
-    Line (sprintf "%s %s =" let2 of_string);
+    Line (sprintf "%s %s%s = (" let2 of_string extra_param);
     Block (List.map Indent.strip reader_expr);
+    Line (sprintf ")%s" extra_args);
     Line "";
   ]
 
