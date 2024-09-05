@@ -48,7 +48,6 @@ let make_ocaml_name_intf ~with_create buf deref defs =
       | Bool _
       | Int _
       | Float _
-      | String _
       | Tvar _
       | Record _
       | Tuple _
@@ -57,7 +56,7 @@ let make_ocaml_name_intf ~with_create buf deref defs =
       | Nullable _
       | External _ ->
         ()
-      | Sum _ | Wrap _ | Name _ ->
+      | Sum _ | Wrap _ | Name _ | String _ ->
         let s = x.def_name in
         let full_name = Ox_emit.get_full_type_name x in
         bprintf buf "\
@@ -284,7 +283,6 @@ let make_ocaml_name_writer p ~original_types is_rec let1 let2 def deref =
   | Bool _
   | Int _
   | Float _
-  | String _
   | Tvar _
   | Record _
   | Tuple _
@@ -293,7 +291,7 @@ let make_ocaml_name_writer p ~original_types is_rec let1 let2 def deref =
   | Nullable _
   | External _ ->
     []
-  | Sum _ | Wrap _ | Name _ ->
+  | Sum _ | Wrap _ | Name _ | String _ ->
   let name = def.def_name in
   let type_constraint = Ox_emit.get_type_constraint ~original_types def in
   let _param = def.def_param in
@@ -323,7 +321,6 @@ let make_ocaml_name_reader p ~original_types is_rec let1 let2 def deref =
   | Bool _
   | Int _
   | Float _
-  | String _
   | Tvar _
   | Record _
   | Tuple _
@@ -332,7 +329,7 @@ let make_ocaml_name_reader p ~original_types is_rec let1 let2 def deref =
   | Nullable _
   | External _ ->
     []
-  | Sum _ | Wrap _ | Name _ ->
+  | Sum _ | Wrap _ | Name _ | String _ ->
   let name = def.def_name in
   let type_constraint = Ox_emit.get_type_constraint ~original_types def in
   let _param = def.def_param in
