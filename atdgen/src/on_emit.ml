@@ -43,7 +43,7 @@ let make_ocaml_name_intf ~with_create buf deref defs =
   |> List.filter Ox_emit.include_intf
   |> List.iter (fun x ->
       let v = Option.value_exn x.def_value in
-      match deref v with
+      match unwrap deref v with
       | Unit _
       | Bool _
       | Int _
@@ -272,7 +272,7 @@ and make_cases_reader p type_annot ~tick ~open_enum ~fallback_expr l =
 
 let make_ocaml_name_writer p ~original_types is_rec let1 let2 def deref =
   let x = Option.value_exn def.def_value in
-  match deref x with
+  match unwrap deref x with
   | Unit _
   | Bool _
   | Int _
@@ -305,7 +305,7 @@ let make_ocaml_name_writer p ~original_types is_rec let1 let2 def deref =
 
 let make_ocaml_name_reader p ~original_types is_rec let1 let2 def deref =
   let x = Option.value_exn def.def_value in
-  match deref x with
+  match unwrap deref x with
   | Unit _
   | Bool _
   | Int _
