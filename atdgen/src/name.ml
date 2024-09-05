@@ -24,9 +24,7 @@ type name_sum = {
   name_open_enum : bool;
 }
 
-let section = "name"
-
-let sections = [ section ]
+let sections = [ "name"; "json"; ]
 
 type name_repr =
   | Bool
