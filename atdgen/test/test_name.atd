@@ -5,9 +5,9 @@ type sum_poly = [
 ]
 
 type sum_classic = [
-  | A1 <name name="a">
-  | B1 <name name="bb">
-  | C1 <name name="Ccc">
+  | A <name name="a">
+  | B <name name="bb">
+  | C <name name="Ccc">
 ] <ocaml repr="classic">
 
 type sum_args_poly = [
@@ -20,12 +20,12 @@ type sum_args_poly = [
 ]
 
 type sum_args_classic = [
-  | A2 <name name="a"> of int
-  | B2 <name name="bb"> of string
-  | C2 <name name="Ccc"> of sum_classic
-  | D2 <name name="d!"> of sum_args_classic
-  | E2 <name name="E"> of (float * unit)
-  | F2 <name name="">
+  | A <name name="a"> of int
+  | B <name name="bb"> of string
+  | C <name name="Ccc"> of sum_classic
+  | D <name name="d!"> of sum_args_classic
+  | E <name name="E"> of (float * unit)
+  | F <name name="">
 ]
 
 type sum_open_enum_poly = [
@@ -36,9 +36,12 @@ type sum_open_enum_poly = [
 ] <name open_enum>
 
 type sum_open_enum_classic = [
-  | A3 <name name="a">
-  | B3 <name name="bb">
-  | C3 <name name="Ccc">
-  | Z3 <name name="Z"> of string
+  | A <name name="a">
+  | B <name name="bb">
+  | C <name name="Ccc">
+  | Z <name name="Z"> of string
 ] <ocaml repr="classic"> <name open_enum>
 
+type wrap_string = string wrap <ocaml t="string" wrap="Fun.id" unwrap="Fun.id">
+
+type plain_string = string
